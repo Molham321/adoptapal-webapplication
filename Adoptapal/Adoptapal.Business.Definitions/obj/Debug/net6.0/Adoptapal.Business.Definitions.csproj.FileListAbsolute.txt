@@ -1,0 +1,14 @@
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\bin\Debug\net6.0\Adoptapal.Business.Definitions.deps.json
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\bin\Debug\net6.0\Adoptapal.Business.Definitions.runtimeconfig.json
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\bin\Debug\net6.0\Adoptapal.Business.Definitions.dll
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\bin\Debug\net6.0\Adoptapal.Business.Definitions.pdb
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\obj\Debug\net6.0\Adoptapal.Business.Definitions.csproj.AssemblyReference.cache
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\obj\Debug\net6.0\Adoptapal.Business.Definitions.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\obj\Debug\net6.0\Adoptapal.Business.Definitions.AssemblyInfoInputs.cache
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\obj\Debug\net6.0\Adoptapal.Business.Definitions.AssemblyInfo.cs
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\obj\Debug\net6.0\Adoptapal.Business.Definitions.csproj.CoreCompileInputs.cache
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\obj\Debug\net6.0\Adoptapal.Business.Definitions.dll
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\obj\Debug\net6.0\refint\Adoptapal.Business.Definitions.dll
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\obj\Debug\net6.0\Adoptapal.Business.Definitions.pdb
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\obj\Debug\net6.0\Adoptapal.Business.Definitions.genruntimeconfig.cache
+C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Definitions\obj\Debug\net6.0\ref\Adoptapal.Business.Definitions.dll
