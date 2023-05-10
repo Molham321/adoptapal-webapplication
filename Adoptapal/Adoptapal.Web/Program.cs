@@ -13,6 +13,7 @@ builder.Services.AddDbContext<AdoptapalDbContext>(optionsBuilder =>
     optionsBuilder.EnableSensitiveDataLogging();
 });
 builder.Services.AddScoped<NoticeManager>();
+builder.Services.AddScoped<UserManager>();
 
 var app = builder.Build();
 

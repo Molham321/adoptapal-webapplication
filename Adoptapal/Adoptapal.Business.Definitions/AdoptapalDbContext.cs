@@ -7,15 +7,20 @@ namespace Adoptapal.Business.Definitions
     {
         public AdoptapalDbContext(DbContextOptions<AdoptapalDbContext> options) : base(options)
         {
-            //Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            // Notice --------------
             //modelBuilder.Entity<Notice>().Property(e => e.Content).HasMaxLength(256);
             modelBuilder.ApplyConfiguration(new NoticeConfiguration());
+
+            // user -----------------
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
 
         public DbSet<Notice> Notices { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
