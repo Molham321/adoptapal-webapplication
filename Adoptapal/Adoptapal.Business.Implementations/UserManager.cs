@@ -26,6 +26,17 @@ namespace Adoptapal.Business.Implementations
             return _container.Users.Include(it => it.Address).FirstOrDefault(it => it.Id == id);
         }
 
+        public User FindByEmail(string email)
+        {
+            return _container.Users.Include(it => it.Address).FirstOrDefault(it => it.Email == email);
+        }
+
+        public bool CheckPassword (User user, string password)
+        {
+            return user.Password == password;
+        }
+
+
         public void Add(User user)
         {
             user.Id = Guid.NewGuid();

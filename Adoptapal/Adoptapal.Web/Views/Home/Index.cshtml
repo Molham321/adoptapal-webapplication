@@ -1,8 +1,21 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
+    var userId = Context.Session.GetString("UserId");
+    var userName = Context.Session.GetString("UserName");
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@if (userId != null)
+{
+    <p>Angemeldet als Benutzer mit der ID: @userId</p>
+    <p>Angemeldet als Benutzer mit der Name: @userName</p>
+}
+else
+{
+    <p>Nicht angemeldet</p>
+}
