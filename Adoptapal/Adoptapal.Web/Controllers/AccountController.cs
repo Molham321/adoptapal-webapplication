@@ -1,7 +1,6 @@
 ﻿using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace Adoptapal.Web.Controllers
