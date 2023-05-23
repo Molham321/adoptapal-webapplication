@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Animal>
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.ImagePath
+        </td>
+        <td>
+            @item.Name
+        </td>
+        <td>
+            @item.Category
+        </td>
+        <td>
+            @item.Description
+        </td>
+        <td>
+              @Html.ActionLink("Details", "Details", new { id=item.Id })
+        </td>
+    </tr>
+}
+</table>
+

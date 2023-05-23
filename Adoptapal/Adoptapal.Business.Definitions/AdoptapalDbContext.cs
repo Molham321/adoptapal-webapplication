@@ -18,9 +18,13 @@ namespace Adoptapal.Business.Definitions
 
             // user -----------------
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+
+            // animal ---------------
+            modelBuilder.ApplyConfiguration(new AnimalConfiguration());
         }
 
         public DbSet<Notice> Notices { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Animal> Animals { get; set; }
     }
 }

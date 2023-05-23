@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Adoptapal.Business.Implementations
-build_property.ProjectDir = C:\Users\molha\OneDrive\Desktop\FHS\Master\01_Semester\Web Engineering 1\Project\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Implementations\
+build_property.ProjectDir = C:\Web_Engineering_Projekt\adoptapalwebapplication\Adoptapal\Adoptapal.Business.Implementations\

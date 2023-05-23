@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\Adoptapal.Web.csproj": {}
+    "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\Adoptapal.Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj": {
+    "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj",
+        "projectUniqueName": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj",
         "projectName": "Adoptapal.Business.Definitions",
-        "projectPath": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj",
-        "packagesPath": "C:\\Users\\molha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\obj\\",
+        "projectPath": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj",
+        "packagesPath": "C:\\Users\\almer\\.nuget\\packages\\",
+        "outputPath": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\molha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\almer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -81,17 +81,17 @@
         }
       }
     },
-    "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\Adoptapal.Business.Implementations.csproj": {
+    "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\Adoptapal.Business.Implementations.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\Adoptapal.Business.Implementations.csproj",
+        "projectUniqueName": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\Adoptapal.Business.Implementations.csproj",
         "projectName": "Adoptapal.Business.Implementations",
-        "projectPath": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\Adoptapal.Business.Implementations.csproj",
-        "packagesPath": "C:\\Users\\molha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\obj\\",
+        "projectPath": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\Adoptapal.Business.Implementations.csproj",
+        "packagesPath": "C:\\Users\\almer\\.nuget\\packages\\",
+        "outputPath": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\molha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\almer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -105,8 +105,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj": {
-                "projectPath": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj"
+              "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj": {
+                "projectPath": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj"
               }
             }
           }
@@ -150,17 +150,17 @@
         }
       }
     },
-    "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\Adoptapal.Web.csproj": {
+    "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\Adoptapal.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\Adoptapal.Web.csproj",
+        "projectUniqueName": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\Adoptapal.Web.csproj",
         "projectName": "Adoptapal.Web",
-        "projectPath": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\Adoptapal.Web.csproj",
-        "packagesPath": "C:\\Users\\molha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\obj\\",
+        "projectPath": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\Adoptapal.Web.csproj",
+        "packagesPath": "C:\\Users\\almer\\.nuget\\packages\\",
+        "outputPath": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\molha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\almer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -174,11 +174,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj": {
-                "projectPath": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj"
+              "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj": {
+                "projectPath": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Definitions\\Adoptapal.Business.Definitions.csproj"
               },
-              "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\Adoptapal.Business.Implementations.csproj": {
-                "projectPath": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\Adoptapal.Business.Implementations.csproj"
+              "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\Adoptapal.Business.Implementations.csproj": {
+                "projectPath": "C:\\Web_Engineering_Projekt\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Business.Implementations\\Adoptapal.Business.Implementations.csproj"
               }
             }
           }

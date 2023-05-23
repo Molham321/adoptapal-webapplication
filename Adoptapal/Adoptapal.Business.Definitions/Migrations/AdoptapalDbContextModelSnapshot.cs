@@ -49,6 +49,55 @@ namespace Adoptapal.Business.Definitions.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("Adoptapal.Business.Definitions.Animal", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AnimalCategory")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Birthday")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageFilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsMale")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MarkedAsFavouriteByUser")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Tiere", (string)null);
+                });
+
             modelBuilder.Entity("Adoptapal.Business.Definitions.Notice", b =>
                 {
                     b.Property<Guid>("Id")
@@ -95,6 +144,15 @@ namespace Adoptapal.Business.Definitions.Migrations
                     b.HasIndex("AddressId");
 
                     b.ToTable("Nutzer", (string)null);
+                });
+
+            modelBuilder.Entity("Adoptapal.Business.Definitions.Animal", b =>
+                {
+                    b.HasOne("Adoptapal.Business.Definitions.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Adoptapal.Business.Definitions.User", b =>
