@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Home Page";
     var userId = Context.Session.GetString("UserId");
-    var userName = Context.Session.GetString("UserName");
 }
 
 <div class="text-center">
@@ -13,7 +12,6 @@
 @if (userId != null)
 {
     <p>Angemeldet als Benutzer mit der ID: @userId</p>
-    <p>Angemeldet als Benutzer mit der Name: @userName</p>
 }
 else
 {
