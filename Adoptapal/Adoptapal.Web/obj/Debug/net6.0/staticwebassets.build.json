@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "oTgLHL4Q6MBoEQBXMZoD4xUJfJZ3c55RO5MgoWK0rBI=",
+  "Hash": "XTUF1ksXfBN0IwuX5R2oADvnxHYpOKy09gSaglL8QzA=",
   "Source": "Adoptapal.Web",
   "BasePath": "_content/Adoptapal.Web",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Adoptapal.Web.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\wwwroot\\css\\settings.css",
+      "SourceId": "Adoptapal.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\wwwroot\\",
+      "BasePath": "_content/Adoptapal.Web",
+      "RelativePath": "css/settings.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\settings.css"
     },
     {
       "Identity": "C:\\Users\\molha\\OneDrive\\Desktop\\FHS\\Master\\01_Semester\\Web Engineering 1\\Project\\adoptapalwebapplication\\Adoptapal\\Adoptapal.Web\\wwwroot\\css\\site.css",

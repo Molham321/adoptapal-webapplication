@@ -1,7 +1,8 @@
 ﻿using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Adoptapal.Web.Controllers
 {
@@ -30,13 +31,11 @@ namespace Adoptapal.Web.Controllers
             if (user != null)
             {
                 // Überprüfe das Passwort des Benutzers
-                if (_manager.CheckPassword(user, model.Password))
+                if (UserManager.CheckPassword(user, model.Password))
                 {
                     // Bei erfolgreicher Anmeldung wird der Benutzer zur Startseite weitergeleitet
-
-                    // TODO Session
-                    HttpContext.Session.SetString("UserId", model.Id.ToString()); // Eine Sitzungsvariable erstellen
-                    HttpContext.Session.SetString("UserName", model.Email); // Eine Sitzungsvariable erstellen
+                    HttpContext.Session.SetString("UserId", user.Id.ToString()); // Eine Sitzungsvariable erstellen
+                    HttpContext.Session.SetString("UserName", user.Email);       // Eine Sitzungsvariable erstellen
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -66,9 +65,12 @@ namespace Adoptapal.Web.Controllers
                     return View(model);
                 }
 
+                model.Password = UserManager.HashPassword(model.Password);
+                model.ConfirmPassword = model.Password;
+
                 _manager.Add(model);
+
                 HttpContext.Session.SetString("UserId", model.Id.ToString()); // Eine Sitzungsvariable erstellen
-                HttpContext.Session.SetString("UserName", model.Email.ToString()); // Eine Sitzungsvariable erstellen
                 return RedirectToAction("Index", "Home"); // Weiterleitung zur Startseite
             }
 
@@ -83,5 +85,47 @@ namespace Adoptapal.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult Settings()
+        {
+            string stringValue = HttpContext.Session.GetString("UserId");
+            Guid guidValue;
+
+            bool isValidGuid = Guid.TryParse(stringValue, out guidValue);
+
+            if (isValidGuid)
+            {
+
+                User model = _manager.GetUser(guidValue);
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Settings(User model)
+        {
+            Guid guidValue = model.Id;
+
+            User user = _manager.GetUser(guidValue);
+
+            if (ModelState.IsValid)
+            {
+                user.Name = model.Name;
+                user.Email = model.Email;
+                user.Password = UserManager.HashPassword(model.Password);
+                user.ConfirmPassword = user.Password;
+
+                _manager.Update(user);
+
+                HttpContext.Session.SetString("UserId", model.Id.ToString()); // Eine Sitzungsvariable erstellen
+                return View(model); ; // Weiterleitung zur Startseite
+            }
+
+            ModelState.AddModelError("", "error.");
+            return View(model); // Wenn das Model ungültig ist, wird es erneut angezeigt
+        }
     }
 }
