@@ -1,13 +1,5 @@
 ﻿using Adoptapal.Business.Definitions;
 using Microsoft.EntityFrameworkCore;
-<<<<<<< .merge_file_a05760
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-=======
->>>>>>> .merge_file_a14536
 
 namespace Adoptapal.Business.Implementations
 {

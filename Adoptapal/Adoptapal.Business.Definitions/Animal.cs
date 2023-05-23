@@ -1,13 +1,5 @@
-<<<<<<< .merge_file_a14424
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-=======
+
 ﻿using System.ComponentModel.DataAnnotations;
->>>>>>> .merge_file_a11576
 using System.ComponentModel;
 
 namespace Adoptapal.Business.Definitions
