@@ -1,7 +1,6 @@
 ﻿
 @{
     var userId = Context.Session.GetString("UserId");
-    var userName = Context.Session.GetString("UserName");
 }
 
 <!DOCTYPE html>
@@ -12,6 +11,7 @@
     <title>@ViewData["Title"] - Adoptapal.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/settings.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Adoptapal.Web.styles.css" asp-append-version="true" />
 </head>
 <body>
@@ -31,21 +31,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav">
                         @{
-                            if (userName != null)
+                            if (userId != null)
                             {
-                                <li class="nav-item ml-auto">
+                                <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Signout">Signout</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Settings">Settings</a>
                                 </li>
                             }
                             else
                             {
-                                <li class="nav-item ml-auto">
+                                <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                                 </li>
                             }
                         }
-
                     </ul>
                 </div>
             </div>

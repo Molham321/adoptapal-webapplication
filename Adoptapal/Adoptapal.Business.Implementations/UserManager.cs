@@ -3,6 +3,8 @@ using Adoptapal.Business.Definitions;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace Adoptapal.Business.Implementations
 {
@@ -31,9 +33,19 @@ namespace Adoptapal.Business.Implementations
             return _container.Users.Include(it => it.Address).FirstOrDefault(it => it.Email == email);
         }
 
-        public bool CheckPassword (User user, string password)
+        public static bool CheckPassword (User user, string password)
         {
+            password = HashPassword(password);
             return user.Password == password;
+        }
+
+        public static string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return BitConverter.ToString(hashedBytes).Replace("-", string.Empty);
+            }
         }
 
 
@@ -41,6 +53,12 @@ namespace Adoptapal.Business.Implementations
         {
             user.Id = Guid.NewGuid();
             _container.Users.Add(user);
+            _container.SaveChanges();
+        }
+
+        public void Update(User user)
+        {
+            _container.Users.Update(user);
             _container.SaveChanges();
         }
 
