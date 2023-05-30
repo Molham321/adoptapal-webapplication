@@ -84,7 +84,7 @@ else
         </div>
 
         <div class="form-group col-md-6">
-            <input type="submit" value="Save" class="btn btn-primary" id="Save_ID" />
+            <input type="submit" value="Save" class="btn btn-primary" id="Submit_ID" />
         </div>
     </div>
         
@@ -99,8 +99,9 @@ else
     <script type="text/javascript">
         const confirmPassword = document.querySelector("#ConfirmPassword_Id");
         const password = document.querySelector("#Password_ID");
-        const save = document.querySelector("#Save_ID");
+        const submit = document.querySelector("#Submit_ID");
         const confirmPasswordTextDanger = document.querySelector("#ConfirmPasswordTextDanger");
+
 
         password.addEventListener("input", checkPasswords)
         confirmPassword.addEventListener("input", checkPasswords)
@@ -108,13 +109,14 @@ else
         function checkPasswords() {
             if (password.value != confirmPassword.value) {
                 confirmPassword.style.borderColor = "red";
-                save.disabled = true;
+                submit.disabled = true;
                 confirmPasswordTextDanger.innerText = 'Passwords do not match';
-                console.log(confirmPasswordTextDanger);
+
             } else {
                 confirmPassword.style.borderColor = "green";
-                save.disabled = false;
+                submit.disabled = false;
                 confirmPasswordTextDanger.innerText = '';
+
             }
         }
 

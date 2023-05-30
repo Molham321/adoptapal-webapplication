@@ -27,31 +27,31 @@
                                     <h5 class="fw-normal mb-2 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
 
                                     <div class="form-outline mb-2">
-                                        <input asp-for="Name" class="form-control" />
                                         <label asp-for="Name" class="control-label">Name</label>
+                                        <input asp-for="Name" class="form-control" />
                                         <span asp-validation-for="Name" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-outline mb-2">
-                                        <input asp-for="Email" type=" email" id="Email_id" class="form-control" />
-                                        <label asp-for="Email" class=" form-label" for="Email_id">Email address</label>
+                                        <label asp-for="Email" class="control-label"></label>
+                                        <input asp-for="Email" class="form-control" />
                                         <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-outline mb-2">
+                                        <label asp-for="Password" class="control-label" for="Password_ID">Password</label>
                                         <input asp-for="Password" type="password" id="Password_ID" class="form-control" />
-                                        <label asp-for="Password" class="form-label" for="Password_ID">Password</label>
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-outline mb-2">
-                                        <input type="password" id="ConfirmPassword_Id" class="form-control" />
                                         <label class="control-label">Confirm Password</label>
+                                        <input type="password" id="ConfirmPassword_Id" class="form-control" />
                                         <span id="ConfirmPasswordTextDanger" class="text-danger"></span>
                                     </div>
 
                                     <div class="pt-1 mb-2">
-                                        <button class="btn btn-dark btn-lg btn-block" id="Create_ID" type="submit">Create</button>
+                                        <button class="btn btn-dark btn-lg btn-block" id="Submit_ID" type="submit">Create</button>
                                     </div>
 
                                     <p class="mb-3 pb-lg-2" style="color: #393f81;">
@@ -74,7 +74,7 @@
     <script type="text/javascript">
         const confirmPassword = document.querySelector("#ConfirmPassword_Id");
         const password = document.querySelector("#Password_ID");
-        const create = document.querySelector("#Create_ID");
+        const submit = document.querySelector("#Submit_ID");
         const confirmPasswordTextDanger = document.querySelector("#ConfirmPasswordTextDanger");
 
 
@@ -84,12 +84,12 @@
         function checkPasswords() {
             if (password.value != confirmPassword.value) {
                 confirmPassword.style.borderColor = "red";
-                create.disabled = true;
+                submit.disabled = true;
                 confirmPasswordTextDanger.innerText = 'Passwords do not match';
 
             } else {
                 confirmPassword.style.borderColor = "green";
-                create.disabled = false;
+                submit.disabled = false;
                 confirmPasswordTextDanger.innerText = '';
 
             }

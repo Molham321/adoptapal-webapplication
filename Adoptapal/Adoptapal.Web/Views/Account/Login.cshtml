@@ -25,14 +25,14 @@
                                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
 
                                     <div class="form-outline mb-2">
-                                        <input asp-for="Email" type=" email" id="Email_id" class="form-control form-control-lg" />
-                                        <label asp-for="Email" class=" form-label" for="Email_id">Email address</label>
+                                        <label asp-for="Email" class="control-label"></label>
+                                        <input asp-for="Email" class="form-control" />
                                         <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-outline mb-2">
-                                        <input asp-for="Password" type="password" id="form2Example27" class="form-control form-control-lg" />
-                                        <label asp-for="Password" class="form-label" for="form2Example27">Password</label>
+                                        <label asp-for="Password" class="control-label" >Password</label>
+                                        <input asp-for="Password" type="password" class="form-control" />
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
 
