@@ -56,8 +56,16 @@ namespace Adoptapal.Business.Implementations
             _container.SaveChanges();
         }
 
+        public void AddAddress(Address address)
+        {
+            address.Id = Guid.NewGuid();
+            _container.Address.Add(address);
+            _container.SaveChanges();
+        }
+
         public void Update(User user)
         {
+            _container.Address.Update(user.Address);
             _container.Users.Update(user);
             _container.SaveChanges();
         }
