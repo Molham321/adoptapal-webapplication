@@ -18,37 +18,77 @@ else
 
 <h4>User</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Settings">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" value="@Model.Name" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" value="@Model.Email" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+<form asp-action="Settings">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+
+    <div class="row">
+
+        <div class="form-group col-md-6">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" id="Password_ID" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label class="control-label">Confirm Password</label>
+            <input id="ConfirmPassword_Id" type="password" class="form-control" />
+            <span id="ConfirmPasswordTextDanger" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="PhoneNumber" class="control-label"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
     </div>
-</div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="Address.Street" class="control-label"></label>
+            <input asp-for="Address.Street" class="form-control" />
+            <span asp-validation-for="Address.Street" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="Address.StreetNumber" class="control-label"></label>
+            <input asp-for="Address.StreetNumber" class="form-control" />
+            <span asp-validation-for="Address.StreetNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="Address.City" class="control-label"></label>
+            <input asp-for="Address.City" class="form-control" />
+            <span asp-validation-for="Address.City" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="Address.Zip" class="control-label"></label>
+            <input asp-for="Address.Zip" class="form-control" />
+            <span asp-validation-for="Address.Zip" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <input type="submit" value="Save" class="btn btn-primary" id="Save_ID" />
+        </div>
+    </div>
+        
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>
@@ -56,4 +96,27 @@ else
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        const confirmPassword = document.querySelector("#ConfirmPassword_Id");
+        const password = document.querySelector("#Password_ID");
+        const save = document.querySelector("#Save_ID");
+        const confirmPasswordTextDanger = document.querySelector("#ConfirmPasswordTextDanger");
+
+        password.addEventListener("input", checkPasswords)
+        confirmPassword.addEventListener("input", checkPasswords)
+
+        function checkPasswords() {
+            if (password.value != confirmPassword.value) {
+                confirmPassword.style.borderColor = "red";
+                save.disabled = true;
+                confirmPasswordTextDanger.innerText = 'Passwords do not match';
+                console.log(confirmPasswordTextDanger);
+            } else {
+                confirmPassword.style.borderColor = "green";
+                save.disabled = false;
+                confirmPasswordTextDanger.innerText = '';
+            }
+        }
+
+    </script>
 }

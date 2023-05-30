@@ -34,7 +34,6 @@ namespace Adoptapal.Web.Controllers
                 {
                     // Bei erfolgreicher Anmeldung wird der Benutzer zur Startseite weitergeleitet
                     HttpContext.Session.SetString("UserId", user.Id.ToString()); // Eine Sitzungsvariable erstellen
-                    HttpContext.Session.SetString("UserName", user.Email);       // Eine Sitzungsvariable erstellen
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -65,7 +64,6 @@ namespace Adoptapal.Web.Controllers
                 }
 
                 model.Password = UserManager.HashPassword(model.Password);
-                model.ConfirmPassword = model.Password;
 
                 _manager.Add(model);
 
@@ -79,7 +77,6 @@ namespace Adoptapal.Web.Controllers
         public IActionResult Signout()
         {
             HttpContext.Session.Remove("UserId");
-            HttpContext.Session.Remove("UserName");
 
             return RedirectToAction("Index", "Home");
         }
@@ -106,24 +103,50 @@ namespace Adoptapal.Web.Controllers
         [HttpPost]
         public IActionResult Settings(User model)
         {
-            Guid guidValue = model.Id;
+            User user = _manager.GetUser(model.Id);
 
-            User user = _manager.GetUser(guidValue);
-
+            //check validation
             if (ModelState.IsValid)
             {
+                // update user info
                 user.Name = model.Name;
                 user.Email = model.Email;
                 user.Password = UserManager.HashPassword(model.Password);
-                user.ConfirmPassword = user.Password;
+                user.PhoneNumber = model.PhoneNumber;
 
+
+                // Add or update user address
+                if (user.Address == null)
+                {
+                    Address address = new Address
+                    {
+                        Street = model.Address.Street,
+                        StreetNumber = model.Address.StreetNumber,
+                        City = model.Address.City,
+                        Zip = model.Address.Zip
+                    };
+
+                    user.Address = address;
+                    _manager.AddAddress(address);
+
+                }
+                else
+                {
+                    user.Address.Street = model.Address.Street;
+                    user.Address.StreetNumber = model.Address.StreetNumber;
+                    user.Address.City = model.Address.City;
+                    user.Address.Zip = model.Address.Zip;
+                }
+
+                // update DB
                 _manager.Update(user);
 
                 HttpContext.Session.SetString("UserId", model.Id.ToString()); // Eine Sitzungsvariable erstellen
-                return View(model); ; // Weiterleitung zur Startseite
+
+                return View(model);
             }
 
-            ModelState.AddModelError("", "error.");
+            ModelState.AddModelError("", "Is not Valid.");
             return View(model); // Wenn das Model ungültig ist, wird es erneut angezeigt
         }
     }

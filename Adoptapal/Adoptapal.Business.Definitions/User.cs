@@ -24,10 +24,8 @@ namespace Adoptapal.Business.Definitions
         ErrorMessage = "The password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character.")]
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "Compare")]
-        public string ConfirmPassword { get; set; }
+        [Display(Name = "Phone Number")]
+        public string? PhoneNumber { get; set; }
 
         [Display(Name = "Address")]
         public Address? Address { get; set; }

@@ -5,45 +5,95 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Register</h1>
 
-<h4>User</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+
+<section class="vh-50">
+    <div class="container py-5 h-50">
+        <div class="row d-flex justify-content-center align-items-center h-50">
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+
+                                <form asp-action="Register">
+
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                    <div class="d-flex align-items-center mb-2 pb-1">
+                                        <span class="h1 fw-bold mb-0">Register</span>
+                                    </div>
+
+                                    <h5 class="fw-normal mb-2 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+
+                                    <div class="form-outline mb-2">
+                                        <input asp-for="Name" class="form-control" />
+                                        <label asp-for="Name" class="control-label">Name</label>
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-2">
+                                        <input asp-for="Email" type=" email" id="Email_id" class="form-control" />
+                                        <label asp-for="Email" class=" form-label" for="Email_id">Email address</label>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-2">
+                                        <input asp-for="Password" type="password" id="Password_ID" class="form-control" />
+                                        <label asp-for="Password" class="form-label" for="Password_ID">Password</label>
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-2">
+                                        <input type="password" id="ConfirmPassword_Id" class="form-control" />
+                                        <label class="control-label">Confirm Password</label>
+                                        <span id="ConfirmPasswordTextDanger" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="pt-1 mb-2">
+                                        <button class="btn btn-dark btn-lg btn-block" id="Create_ID" type="submit">Create</button>
+                                    </div>
+
+                                    <p class="mb-3 pb-lg-2" style="color: #393f81;">
+                                        You have an account?
+                                        <a asp-action="Login">Back to Login</a>
+                                    </p>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" type="password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" type="password" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Login">Back to Login</a>
-</div>
+</section>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        const confirmPassword = document.querySelector("#ConfirmPassword_Id");
+        const password = document.querySelector("#Password_ID");
+        const create = document.querySelector("#Create_ID");
+        const confirmPasswordTextDanger = document.querySelector("#ConfirmPasswordTextDanger");
+
+
+        password.addEventListener("input", checkPasswords)
+        confirmPassword.addEventListener("input", checkPasswords)
+
+        function checkPasswords() {
+            if (password.value != confirmPassword.value) {
+                confirmPassword.style.borderColor = "red";
+                create.disabled = true;
+                confirmPasswordTextDanger.innerText = 'Passwords do not match';
+
+            } else {
+                confirmPassword.style.borderColor = "green";
+                create.disabled = false;
+                confirmPasswordTextDanger.innerText = '';
+
+            }
+        }
+
+    </script>
 }
