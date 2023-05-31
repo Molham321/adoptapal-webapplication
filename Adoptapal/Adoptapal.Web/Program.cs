@@ -1,5 +1,6 @@
 using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
+using Adoptapal.Web.FileUploadService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Threading;
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<AdoptapalDbContext>(optionsBuilder =>
 });
 builder.Services.AddScoped<NoticeManager>();
 builder.Services.AddScoped<UserManager>();
+
+builder.Services.AddScoped<IFileUploadService, LocalFileUploadService>();
 
 //Add Session
 builder.Services.AddDistributedMemoryCache();

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Adoptapal.Business.Implementations\Adoptapal.Business.Implementations.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>
