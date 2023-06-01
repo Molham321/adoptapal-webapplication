@@ -8,6 +8,7 @@ namespace Adoptapal.Web.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager _manager;
+        public static string? userId;
         public AccountController(UserManager manager) : base()
         {
             _manager = manager;
@@ -83,15 +84,11 @@ namespace Adoptapal.Web.Controllers
 
         public IActionResult Settings()
         {
-            string stringValue = HttpContext.Session.GetString("UserId");
-            Guid guidValue;
+            userId = HttpContext.Session.GetString("UserId");
 
-            bool isValidGuid = Guid.TryParse(stringValue, out guidValue);
-
-            if (isValidGuid)
+            if (userId != null)
             {
-
-                User model = _manager.GetUser(guidValue);
+                User model = _manager.GetUser(userId);
                 return View(model);
             }
             else

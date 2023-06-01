@@ -14,7 +14,7 @@ namespace Adoptapal.Web.FileUploadService
         }
         public async Task<string> UploadFileAsync(IFormFile fileName)
         {
-            var filePath = Path.Combine(environment.ContentRootPath, @"wwwroot/images", fileName.FileName);
+            var filePath = Path.Combine(environment.ContentRootPath, @"wwwroot\images", fileName.FileName);
             using var fileStream = new FileStream(filePath, FileMode.Create);
             await fileName.CopyToAsync(fileStream);
             return filePath;

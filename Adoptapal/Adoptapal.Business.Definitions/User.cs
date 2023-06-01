@@ -27,6 +27,8 @@ namespace Adoptapal.Business.Definitions
         [Display(Name = "Phone Number")]
         public string? PhoneNumber { get; set; }
 
+        public string? PhotoPath { get; set; }
+
         [Display(Name = "Address")]
         public Address? Address { get; set; }
     }

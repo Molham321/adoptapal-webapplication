@@ -28,6 +28,12 @@ namespace Adoptapal.Business.Implementations
             return _container.Users.Include(it => it.Address).FirstOrDefault(it => it.Id == id);
         }
 
+        public User? GetUser(string userId)
+        {
+            Guid.TryParse(userId, out Guid id);
+            return _container.Users.Include(it => it.Address).FirstOrDefault(it => it.Id == id);
+        }
+
         public User FindByEmail(string email)
         {
             return _container.Users.Include(it => it.Address).FirstOrDefault(it => it.Email == email);

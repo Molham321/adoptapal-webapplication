@@ -2,6 +2,7 @@
 using Adoptapal.Business.Implementations;
 using Adoptapal.Web.FileUploadService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 
 namespace Adoptapal.Web.Controllers
 { 
@@ -10,8 +11,8 @@ namespace Adoptapal.Web.Controllers
         private readonly UserManager _manager;
         private readonly IFileUploadService _uploadService;
 
-        public string UserId;
-        public string FilePath;
+        public static string? UserId;
+        public static string? FilePath;
         public ProfileController(UserManager manager, IFileUploadService uploadService) : base()
         {
             _manager = manager;
@@ -24,14 +25,11 @@ namespace Adoptapal.Web.Controllers
 
         public IActionResult UserProfile()
         {
-            this.UserId= HttpContext.Session.GetString("UserId");
-            Guid guidValue;
+            UserId = HttpContext.Session.GetString("UserId");
 
-            bool isValidGuid = Guid.TryParse(this.UserId, out guidValue);
-
-            if (isValidGuid)
+            if (UserId != null)
             {
-                User model = _manager.GetUser(guidValue);
+                User model = _manager.GetUser(UserId);
                 return View(model);
             }
             return RedirectToAction("Login", "AccountController");
@@ -41,6 +39,17 @@ namespace Adoptapal.Web.Controllers
         public IActionResult UserProfile(IFormFile file)
         {
             OnPost(file);
+            if(UserId != null)
+            {
+                User user = _manager.GetUser(UserId);
+                if (user != null)
+                {
+                    user.PhotoPath = file.FileName;
+                    _manager.Update(user);
+                }
+
+            }
+
             return RedirectToAction("Index");
         }
 
