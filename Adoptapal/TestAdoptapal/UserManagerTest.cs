@@ -1,9 +1,8 @@
 ﻿using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestAdoptapal
+namespace Adoptapal.Test
 {
     [TestClass]
     public class UserManagerTest
