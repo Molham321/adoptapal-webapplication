@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adoptapal.Business.Definiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adoptapal.Business.Implementations", "Adoptapal.Business.Implementations\Adoptapal.Business.Implementations.csproj", "{596B9075-B961-42CC-9BF9-021A9BC64EA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAdoptapal", "TestAdoptapal\TestAdoptapal.csproj", "{82F7F3B7-D85F-4AB0-BB76-8F57F222C108}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{596B9075-B961-42CC-9BF9-021A9BC64EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{596B9075-B961-42CC-9BF9-021A9BC64EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{596B9075-B961-42CC-9BF9-021A9BC64EA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82F7F3B7-D85F-4AB0-BB76-8F57F222C108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82F7F3B7-D85F-4AB0-BB76-8F57F222C108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82F7F3B7-D85F-4AB0-BB76-8F57F222C108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82F7F3B7-D85F-4AB0-BB76-8F57F222C108}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
