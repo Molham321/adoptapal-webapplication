@@ -71,7 +71,11 @@ namespace Adoptapal.Business.Implementations
 
         public void Update(User user)
         {
-            _container.Address.Update(user.Address);
+            if(user.Address != null)
+            {
+                _container.Address.Update(user.Address);
+            }
+
             _container.Users.Update(user);
             _container.SaveChanges();
         }

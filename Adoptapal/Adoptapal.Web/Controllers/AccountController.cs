@@ -146,5 +146,21 @@ namespace Adoptapal.Web.Controllers
             ModelState.AddModelError("", "Is not Valid.");
             return View(model); // Wenn das Model ungültig ist, wird es erneut angezeigt
         }
+
+        [HttpPost]
+        public IActionResult DeleteUser()
+        {
+            User user = _manager.GetUser(userId);
+
+            if(user != null)
+            {
+                _manager.Delete(user.Id);
+
+                return RedirectToAction("Signout");
+            }
+
+            return RedirectToAction("Login");
+
+        }
     }
 }
