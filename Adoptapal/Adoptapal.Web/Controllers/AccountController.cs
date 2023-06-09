@@ -52,7 +52,9 @@ namespace Adoptapal.Web.Controllers
             return View(new User());
         }
 
+        // POST: Users/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Register(User model)
         {
             if (ModelState.IsValid)
