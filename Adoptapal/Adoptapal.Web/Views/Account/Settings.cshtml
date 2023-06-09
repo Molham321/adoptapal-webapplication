@@ -77,14 +77,13 @@
 
         <div class="form-group col-md-6">
             <input type="submit" value="Save" class="btn btn-primary" id="Submit_ID" />
+            <input value="Delete Account" class="btn btn-danger" id="modalBtn" />
         </div>
     </div>
         
 </form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<partial name="Modal"></partial>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -111,6 +110,23 @@
 
             }
         }
+
+        //----------------------------------------------------
+
+        $("#modalBtn").click(function () {
+            $("#testModal").modal("show");
+        })
+
+        $('[data-dismiss="modal"]').each(function () {
+            $(this).click(function () {
+                $("#testModal").modal("hide");
+            });
+        })
+
+        $("#saveButton").click(function () {
+            alert("Saved");
+            $("#testModal").modal("hide");
+        });
 
     </script>
 }

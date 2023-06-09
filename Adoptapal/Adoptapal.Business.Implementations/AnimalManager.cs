@@ -13,38 +13,48 @@ namespace Adoptapal.Business.Implementations
             _container.Database.Migrate();
         }
 
-        public IQueryable<Animal> GetList()
+        public async Task<List<Animal>> GetAllAnimalsAsync()
         {
-            return _container.Animals.AsQueryable();
+            return await _container.Animals.ToListAsync();
         }
 
-        public Animal? GetAnimal(Guid id)
+        public async Task<List<Animal>> GetAllUserAnimalsByUserAsync(User user)
         {
-            return _container.Animals.FirstOrDefault(it => it.Id == id);
+            return await _container.Animals.Where(m => m.User == user).ToListAsync();
         }
 
-        public Animal FindByName(string name)
+        public async Task<Animal> GetAnimalByIdAsync(Guid id)
         {
-            return _container.Animals.FirstOrDefault(it => it.Name == name);
+            return await _container.Animals.FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        // hier weitere Datenbankoperationen
-
-        public void Add(Animal animal)
+        public async Task CreateAnimalAsync(Animal animal)
         {
             animal.Id = Guid.NewGuid();
-            _container.Animals.Add(animal);
-            _container.SaveChanges();
+            _container.Add(animal);
+            await _container.SaveChangesAsync();
         }
 
-        public void Delete(Guid id)
+        public async Task UpdateAnimalAsync(Animal animal)
         {
-            var animal = _container.Animals.FirstOrDefault(x => x.Id == id);
+            _container.Update(animal);
+            await _container.SaveChangesAsync();
+        }
+
+        public async Task DeleteAnimalAsync(Guid id)
+        {
+            var animal = await _container.Animals.FindAsync(id);
             if (animal != null)
             {
                 _container.Animals.Remove(animal);
-                _container.SaveChanges();
+                await _container.SaveChangesAsync();
             }
         }
+
+        public bool AnimalExists(Guid id)
+        {
+            return _container.Animals.Any(e => e.Id == id);
+        }
+
     }
 }

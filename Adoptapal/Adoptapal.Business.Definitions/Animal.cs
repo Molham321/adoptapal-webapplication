@@ -8,34 +8,25 @@ namespace Adoptapal.Business.Definitions
     {
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage = "Required")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Name is Required")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2}.", MinimumLength = 3)]
+        [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public string Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public string AnimalCategory { get; set; }
+        public string? AnimalCategory { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public string Color { get; set; }
+        public string? Color { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public bool IsMale { get; set; }
+        public bool? IsMale { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public float Weight { get; set; }
+        public float? Weight { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public string ImageFilePath { get; set; }
+        public string? ImageFilePath { get; set; }
 
         public User? User { get; set; }
-
-        // hier später nicht gespeichert? -wo dann?
-        [DefaultValue(false)]
-        public bool MarkedAsFavouriteByUser { get; set; }
     }
 }

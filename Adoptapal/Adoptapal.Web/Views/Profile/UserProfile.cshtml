@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "UserProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var userId = Context.Session.GetString("UserId");
 }
 
 <h1>UserProfile</h1>
@@ -35,7 +34,7 @@
                         </div>
                         <div class="ms-3" style="margin-top: 130px;">
                             <h5>@Model.Name</h5>
-                            @if (!string.IsNullOrEmpty(Model.Address.City))
+                            @if (Model.Address != null && !string.IsNullOrEmpty(Model.Address.City))
                             {
                                 <p>@Model.Address.City</p>
                             }
@@ -55,7 +54,7 @@
                             <div class="p-4" style="background-color: #f8f9fa;">
                                 <p class="font-italic mb-1">Email: @Model.Email</p>
                                 <p class="font-italic mb-1">Phone: @Model.PhoneNumber</p>
-                                @if (!string.IsNullOrEmpty(Model.Address.City))
+                                @if (Model.Address != null && !string.IsNullOrEmpty(Model.Address.City))
                                 {
                                     <p class="font-italic mb-1">Lives in @Model.Address.City</p>
                                 }
