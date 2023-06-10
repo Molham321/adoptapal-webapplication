@@ -1,4 +1,5 @@
-﻿using Adoptapal.Business.Definitions;
+﻿
+using Adoptapal.Business.Definitions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Adoptapal.Business.Implementations
@@ -15,7 +16,7 @@ namespace Adoptapal.Business.Implementations
 
         public async Task<List<Animal>> GetAllAnimalsAsync()
         {
-            return await _container.Animals.ToListAsync();
+            return await _container.Animals.Include(it => it.User).ToListAsync();
         }
 
         public async Task<List<Animal>> GetAllUserAnimalsByUserAsync(User user)
@@ -25,7 +26,7 @@ namespace Adoptapal.Business.Implementations
 
         public async Task<Animal> GetAnimalByIdAsync(Guid id)
         {
-            return await _container.Animals.FirstOrDefaultAsync(m => m.Id == id);
+            return await _container.Animals.Include(it => it.User).FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task CreateAnimalAsync(Animal animal)
@@ -53,7 +54,7 @@ namespace Adoptapal.Business.Implementations
 
         public bool AnimalExists(Guid id)
         {
-            return _container.Animals.Any(e => e.Id == id);
+            return (_container.Animals?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
     }

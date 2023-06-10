@@ -1,4 +1,5 @@
-﻿using Adoptapal.Web.Models;
+﻿using Adoptapal.Business.Implementations;
+using Adoptapal.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,16 +7,39 @@ namespace Adoptapal.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly AnimalManager _manager;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(AnimalManager manager) : base()
         {
-            _logger = logger;
+            _manager = manager;
         }
 
-        public IActionResult Index()
+        // GET: Animals
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var animals = await _manager.GetAllAnimalsAsync();
+
+            return animals != null ?
+                          View(animals) :
+                          Problem("Entity set 'AdoptapalDbContext.Animals' is null.");
+        }
+
+        // GET: Animals/Details/5
+        public async Task<IActionResult> Details(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var animal = await _manager.GetAnimalByIdAsync(id.Value);
+            if (animal == null)
+            {
+                return NotFound();
+            }
+
+            return View(animal);
         }
 
         public IActionResult Privacy()
