@@ -7,16 +7,14 @@ namespace Adoptapal.Web.Controllers
 {
     public class AnimalsController : Controller
     {
-        private readonly AdoptapalDbContext _context;
         private readonly AnimalManager _manager;
         private readonly UserManager _userManager;
 
-        public static string? userId;
+        private static string? userId;
 
 
-        public AnimalsController(AdoptapalDbContext context, AnimalManager manager, UserManager userManager) : base()
+        public AnimalsController(AnimalManager manager, UserManager userManager) : base()
         {
-            _context = context;
             _manager = manager;
             _userManager = userManager;
         }
@@ -31,7 +29,7 @@ namespace Adoptapal.Web.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            var animals = await _manager.GetAllUserAnimalsByUserAsync(_userManager.GetUser(userId));
+            var animals = await _manager.GetAllUserAnimalsByUserAsync(await _userManager.GetUserByIdAsync(userId));
 
             return animals != null ?
                           View(animals) :
@@ -70,7 +68,7 @@ namespace Adoptapal.Web.Controllers
             {
                 if(userId != null)
                 {
-                    animal.User = _userManager.GetUser(userId);
+                    animal.User = await _userManager.GetUserByIdAsync(userId);
                     await _manager.CreateAnimalAsync(animal);
                     return RedirectToAction(nameof(Index));
                 }
@@ -155,11 +153,6 @@ namespace Adoptapal.Web.Controllers
         {
             await _manager.DeleteAnimalAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AnimalExists(Guid id)
-        {
-          return (_context.Animals?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

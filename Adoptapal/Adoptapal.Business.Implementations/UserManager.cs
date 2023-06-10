@@ -1,8 +1,6 @@
 ﻿
 using Adoptapal.Business.Definitions;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
-using System;
 using System.Text;
 using System.Security.Cryptography;
 
@@ -18,25 +16,25 @@ namespace Adoptapal.Business.Implementations
             _container.Database.Migrate();
         }
 
-        public IQueryable<User> GetList() 
+        public async Task<List<User>> GetAllUsersAsync() 
         {
-           return _container.Users.Include(it => it.Address).AsQueryable();
+           return await _container.Users.Include(it => it.Address).ToListAsync();
         }
 
-        public User? GetUser(Guid id)
+        public async Task<User> GetUserByIdAsync(Guid id)
         {
-            return _container.Users.Include(it => it.Address).FirstOrDefault(it => it.Id == id);
+            return await _container.Users.Include(it => it.Address).FirstOrDefaultAsync(it => it.Id == id);
         }
 
-        public User? GetUser(string userId)
+        public async Task<User> GetUserByIdAsync(string userId)
         {
             Guid.TryParse(userId, out Guid id);
-            return _container.Users.Include(it => it.Address).FirstOrDefault(it => it.Id == id);
+            return await _container.Users.Include(it => it.Address).FirstOrDefaultAsync(it => it.Id == id);
         }
 
-        public User FindByEmail(string email)
+        public async Task<User> FindUserByEmailAsync(string email)
         {
-            return _container.Users.Include(it => it.Address).FirstOrDefault(it => it.Email == email);
+            return await _container.Users.Include(it => it.Address).FirstOrDefaultAsync(it => it.Email == email);
         }
 
         public static bool CheckPassword (User user, string password)
@@ -54,41 +52,45 @@ namespace Adoptapal.Business.Implementations
             }
         }
 
-
-        public void Add(User user)
+        public async Task CreateUserAsync(User user)
         {
             user.Id = Guid.NewGuid();
-            _container.Users.Add(user);
-            _container.SaveChanges();
+            _container.Add(user);
+            await _container.SaveChangesAsync();
         }
 
-        public void AddAddress(Address address)
+        public async Task AddAddressAsync(Address address)
         {
             address.Id = Guid.NewGuid();
-            _container.Address.Add(address);
-            _container.SaveChanges();
+            _container.Add(address);
+            await _container.SaveChangesAsync();
         }
 
-        public void Update(User user)
+        public async Task UpdateUserAsync(User user)
         {
             if(user.Address != null)
             {
-                _container.Address.Update(user.Address);
+                _container.Update(user.Address);
             }
 
-            _container.Users.Update(user);
-            _container.SaveChanges();
+            _container.Update(user);
+            await _container.SaveChangesAsync();
         }
 
         // muss man hier auch address mit löschen ?
-        public void Delete(Guid id)
+        public async Task DeleteUserAsync(Guid id)
         {
-            var user = _container.Users.FirstOrDefault(x => x.Id == id);
+            var user = await _container.Users.FindAsync(id);
             if (user != null)
             {
                 _container.Users.Remove(user);
-                _container.SaveChanges();
+                await _container.SaveChangesAsync();
             }
+        }
+
+        public bool UserExists(Guid id)
+        {
+            return _container.Users.Any(e => e.Id == id);
         }
     }
 }

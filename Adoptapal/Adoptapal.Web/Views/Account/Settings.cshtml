@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Settings";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var userId = Context.Session.GetString("UserId");
 }
 
 <h1>Settings</h1>
@@ -96,6 +95,7 @@
 
         password.addEventListener("input", checkPasswords)
         confirmPassword.addEventListener("input", checkPasswords)
+        submit.addEventListener("click", confirm)
 
         function checkPasswords() {
             if (password.value != confirmPassword.value) {
@@ -109,6 +109,10 @@
                 confirmPasswordTextDanger.innerText = '';
 
             }
+        }
+
+        function confirm() {
+            alert("you have successfully updated your data");
         }
 
         //----------------------------------------------------

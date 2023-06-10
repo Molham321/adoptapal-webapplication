@@ -11,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AdoptapalDbContext>(optionsBuilder =>
 {
-    optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("AppDb"));
+    optionsBuilder.UseSqlServer(
+        builder.Configuration.GetConnectionString("AppDb"));
     optionsBuilder.EnableSensitiveDataLogging();
 });
 builder.Services.AddScoped<NoticeManager>();

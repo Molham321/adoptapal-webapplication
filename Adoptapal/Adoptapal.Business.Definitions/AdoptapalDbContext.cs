@@ -25,7 +25,6 @@ namespace Adoptapal.Business.Definitions
 
         public DbSet<Notice> Notices { get; set; }
         public DbSet<User> Users { get; set; }
-
         public DbSet<Address> Address { get; set; }
         public DbSet<Animal> Animals { get; set; }
     }

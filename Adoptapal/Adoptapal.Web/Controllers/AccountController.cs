@@ -8,7 +8,7 @@ namespace Adoptapal.Web.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager _manager;
-        public static string? userId;
+        private static string? userId;
         public AccountController(UserManager manager) : base()
         {
             _manager = manager;
@@ -20,14 +20,15 @@ namespace Adoptapal.Web.Controllers
 
         public IActionResult Login()
         {
-            return View(new User());
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Login(User model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(User model)
         {
             // Suche den Benutzer in der Datenbank anhand seiner E-Mail-Adresse
-            var user = _manager.FindByEmail(model.Email);
+            var user = await _manager.FindUserByEmailAsync(model.Email);
             if (user != null)
             {
                 // Überprüfe das Passwort des Benutzers
@@ -45,21 +46,19 @@ namespace Adoptapal.Web.Controllers
             return View(model);
         }
 
-
-
         public IActionResult Register()
         {
-            return View(new User());
+            return View();
         }
 
         // POST: Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register(User model)
+        public async Task<IActionResult> Register(User model)
         {
             if (ModelState.IsValid)
             {
-                var existingUser = _manager.FindByEmail(model.Email);
+                var existingUser = await _manager.FindUserByEmailAsync(model.Email);
                 if (existingUser != null)
                 {
                     ModelState.AddModelError("", "Die eingegebene E-Mail-Adresse ist bereits vergeben.");
@@ -68,7 +67,7 @@ namespace Adoptapal.Web.Controllers
 
                 model.Password = UserManager.HashPassword(model.Password);
 
-                _manager.Add(model);
+                await _manager.CreateUserAsync(model);
 
                 HttpContext.Session.SetString("UserId", model.Id.ToString()); // Eine Sitzungsvariable erstellen
                 return RedirectToAction("Index", "Home"); // Weiterleitung zur Startseite
@@ -84,25 +83,23 @@ namespace Adoptapal.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Settings()
+        public async Task<IActionResult> Settings()
         {
             userId = HttpContext.Session.GetString("UserId");
 
             if (userId != null)
             {
-                User model = _manager.GetUser(userId);
+                User model = await _manager.GetUserByIdAsync(userId);
                 return View(model);
             }
-            else
-            {
-                return RedirectToAction("Login");
-            }
+             return RedirectToAction("Login");
         }
 
         [HttpPost]
-        public IActionResult Settings(User model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Settings(User model)
         {
-            User user = _manager.GetUser(model.Id);
+            User user = await _manager.GetUserByIdAsync(model.Id);
 
             //check validation
             if (ModelState.IsValid)
@@ -126,7 +123,7 @@ namespace Adoptapal.Web.Controllers
                     };
 
                     user.Address = address;
-                    _manager.AddAddress(address);
+                    await _manager.AddAddressAsync(address);
 
                 }
                 else
@@ -138,7 +135,7 @@ namespace Adoptapal.Web.Controllers
                 }
 
                 // update DB
-                _manager.Update(user);
+                await _manager.UpdateUserAsync(user);
 
                 HttpContext.Session.SetString("UserId", model.Id.ToString()); // Eine Sitzungsvariable erstellen
 
@@ -150,17 +147,17 @@ namespace Adoptapal.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteUser()
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteUser()
         {
-            User user = _manager.GetUser(userId);
+            User user = await _manager.GetUserByIdAsync(userId);
 
             if(user != null)
             {
-                _manager.Delete(user.Id);
+                await _manager.DeleteUserAsync(user.Id);
 
                 return RedirectToAction("Signout");
             }
-
             return RedirectToAction("Login");
 
         }

@@ -23,29 +23,30 @@ namespace Adoptapal.Web.Controllers
             return RedirectToAction("UserProfile");
         }
 
-        public IActionResult UserProfile()
+        public async Task<IActionResult> UserProfile()
         {
             UserId = HttpContext.Session.GetString("UserId");
 
             if (UserId != null)
             {
-                User model = _manager.GetUser(UserId);
+                User model = await _manager.GetUserByIdAsync(UserId);
                 return View(model);
             }
             return RedirectToAction("Login", "AccountController");
         }
 
         [HttpPost]
-        public IActionResult UserProfile(IFormFile file)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UserProfile(IFormFile file)
         {
             OnPost(file);
             if(UserId != null)
             {
-                User user = _manager.GetUser(UserId);
+                User user = await _manager.GetUserByIdAsync(UserId);
                 if (user != null)
                 {
                     user.PhotoPath = file.FileName;
-                    _manager.Update(user);
+                    await _manager.UpdateUserAsync(user);
                 }
 
             }

@@ -39,15 +39,15 @@ namespace Adoptapal.Test
         {
             var manager = new UserManager(_dbContext);
             Assert.IsInstanceOfType(manager, typeof(UserManager));
-            Assert.IsNotNull(manager.GetList());
+            Assert.IsNotNull(manager.GetAllUsersAsync());
         }
 
         [TestMethod]
         [TestCategory("DB-Logic")]
         [TestProperty("Description", "Add user to db")]
-        public void TestAdd()
+        public async void TestAdd()
         {
-            _userManager.Add(user);
+            await _userManager.CreateUserAsync(user);
             Assert.IsNotNull(_dbContext.Users.FirstOrDefault(it => it.Name == "test"));
             Assert.IsNotNull(_dbContext.Users.FirstOrDefault(it => it.Email == "email@gmail.com"));
             Assert.IsNotNull(_dbContext.Users.FirstOrDefault(it => it.Password != null));
@@ -56,11 +56,11 @@ namespace Adoptapal.Test
         [TestMethod]
         [TestCategory("DB-Logic")]
         [TestProperty("Description", "Get user from db by ID")]
-        public void TestGetUserByID()
+        public async void TestGetUserByID()
         {
-            _userManager.Add(user);
-            User newUserWithId = _userManager.GetUser(user.Id);
-            User newUserWithId_2 = _userManager.GetUser(user.Id.ToString());
+            await _userManager.CreateUserAsync(user);
+            User newUserWithId = await _userManager.GetUserByIdAsync(user.Id);
+            User newUserWithId_2 = await _userManager.GetUserByIdAsync(user.Id.ToString());
 
             Assert.IsInstanceOfType(newUserWithId, typeof(User));
             Assert.IsInstanceOfType(newUserWithId_2, typeof(User));
