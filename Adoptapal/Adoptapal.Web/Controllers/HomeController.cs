@@ -42,6 +42,23 @@ namespace Adoptapal.Web.Controllers
             return View(animal);
         }
 
+        // GET: User/Profile/5
+        public async Task<IActionResult> UserProfile(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var animal = await _manager.GetAnimalByIdAsync(id);
+            if (animal == null)
+            {
+                return NotFound();
+            }
+
+            return View(animal.User);
+        }
+
         public IActionResult Privacy()
         {
             return View();

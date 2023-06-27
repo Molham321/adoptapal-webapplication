@@ -9,13 +9,15 @@ namespace Adoptapal.Web.Controllers
     public class ProfileController : Controller
     {
         private readonly UserManager _manager;
+        private readonly AnimalManager _animalManager;
         private readonly IFileUploadService _uploadService;
 
         public static string? UserId;
         public static string? FilePath;
-        public ProfileController(UserManager manager, IFileUploadService uploadService) : base()
+        public ProfileController(UserManager manager, AnimalManager animalManager, IFileUploadService uploadService) : base()
         {
             _manager = manager;
+            _animalManager = animalManager;
             _uploadService = uploadService;
         }
         public IActionResult Index()
@@ -23,16 +25,41 @@ namespace Adoptapal.Web.Controllers
             return RedirectToAction("UserProfile");
         }
 
-        public async Task<IActionResult> UserProfile()
-        {
-            UserId = HttpContext.Session.GetString("UserId");
+        //public async Task<IActionResult> UserProfile()
+        //{
+        //    UserId = HttpContext.Session.GetString("UserId");
 
-            if (UserId != null)
+        //    if (UserId != null)
+        //    {
+        //        User model = await _manager.GetUserByIdAsync(UserId);
+        //        return View(model);
+        //    }
+        //    return RedirectToAction("Login", "AccountController");
+        //}
+
+        public async Task<IActionResult> UserProfile(Guid? id)
+        {
+            if (id == null)
             {
-                User model = await _manager.GetUserByIdAsync(UserId);
-                return View(model);
+                UserId = HttpContext.Session.GetString("UserId");
+                if(UserId != null)
+                {
+                    User model = await _manager.GetUserByIdAsync(UserId);
+                    return View(model);
+                } else
+                {
+                    return RedirectToAction("Login", "AccountController");
+                }
+            } else
+            {
+                var animal = await _animalManager.GetAnimalByIdAsync(id.Value);
+                if (animal == null)
+                {
+                    return NotFound();
+                }
+
+                return View(animal.User);
             }
-            return RedirectToAction("Login", "AccountController");
         }
 
         [HttpPost]
