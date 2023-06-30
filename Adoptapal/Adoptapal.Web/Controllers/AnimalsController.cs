@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
+using Adoptapal.Web.FileUploadService;
 
 namespace Adoptapal.Web.Controllers
 {
@@ -9,14 +10,17 @@ namespace Adoptapal.Web.Controllers
     {
         private readonly AnimalManager _manager;
         private readonly UserManager _userManager;
+        private readonly IFileUploadService _uploadService;
 
         private static string? userId;
+        public static string? FilePath;
 
 
-        public AnimalsController(AnimalManager manager, UserManager userManager) : base()
+        public AnimalsController(AnimalManager manager, UserManager userManager, IFileUploadService uploadService) : base()
         {
             _manager = manager;
             _userManager = userManager;
+            _uploadService = uploadService;
         }
 
         // GET: Animals
@@ -62,12 +66,20 @@ namespace Adoptapal.Web.Controllers
         // POST: Animals/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Birthday,AnimalCategory,Description,Color,IsMale,Weight,ImageFilePath")] Animal animal)
+        public async Task<IActionResult> Create(Animal animal, IFormFile? file)
         {
+
             if (ModelState.IsValid)
             {
-                if(userId != null)
+                if (userId != null)
                 {
+                    if (file != null)
+                    {
+                        FilePath = await _uploadService.UploadFileAsync(file);
+                        animal.ImageFilePath = file.FileName;
+
+                    }
+
                     animal.User = await _userManager.GetUserByIdAsync(userId);
                     await _manager.CreateAnimalAsync(animal);
                     return RedirectToAction(nameof(Index));
@@ -76,10 +88,11 @@ namespace Adoptapal.Web.Controllers
                 {
                     return RedirectToAction("Login", "Account");
                 }
-
             }
+
             return View(animal);
         }
+
 
         // GET: Animals/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
@@ -100,7 +113,7 @@ namespace Adoptapal.Web.Controllers
         // POST: Animals/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Birthday,AnimalCategory,Description,Color,IsMale,Weight,ImageFilePath")] Animal animal)
+        public async Task<IActionResult> Edit(Guid id, Animal animal, IFormFile? file)
         {
             if (id != animal.Id)
             {
@@ -109,6 +122,13 @@ namespace Adoptapal.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+                    FilePath = await _uploadService.UploadFileAsync(file);
+                    animal.ImageFilePath = file.FileName;
+
+                }
+
                 try
                 {
                     await _manager.UpdateAnimalAsync(animal);

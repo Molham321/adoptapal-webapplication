@@ -8,7 +8,7 @@ namespace Adoptapal.Web.Controllers
 { 
     public class ProfileController : Controller
     {
-        private readonly UserManager _manager;
+        private readonly UserManager _userManager;
         private readonly AnimalManager _animalManager;
         private readonly IFileUploadService _uploadService;
 
@@ -16,7 +16,7 @@ namespace Adoptapal.Web.Controllers
         public static string? FilePath;
         public ProfileController(UserManager manager, AnimalManager animalManager, IFileUploadService uploadService) : base()
         {
-            _manager = manager;
+            _userManager = manager;
             _animalManager = animalManager;
             _uploadService = uploadService;
         }
@@ -25,18 +25,6 @@ namespace Adoptapal.Web.Controllers
             return RedirectToAction("UserProfile");
         }
 
-        //public async Task<IActionResult> UserProfile()
-        //{
-        //    UserId = HttpContext.Session.GetString("UserId");
-
-        //    if (UserId != null)
-        //    {
-        //        User model = await _manager.GetUserByIdAsync(UserId);
-        //        return View(model);
-        //    }
-        //    return RedirectToAction("Login", "AccountController");
-        //}
-
         public async Task<IActionResult> UserProfile(Guid? id)
         {
             if (id == null)
@@ -44,8 +32,9 @@ namespace Adoptapal.Web.Controllers
                 UserId = HttpContext.Session.GetString("UserId");
                 if(UserId != null)
                 {
-                    User model = await _manager.GetUserByIdAsync(UserId);
+                    User model = await _userManager.GetUserByIdAsync(UserId);
                     return View(model);
+
                 } else
                 {
                     return RedirectToAction("Login", "AccountController");
@@ -69,11 +58,11 @@ namespace Adoptapal.Web.Controllers
             OnPost(file);
             if(UserId != null)
             {
-                User user = await _manager.GetUserByIdAsync(UserId);
+                User user = await _userManager.GetUserByIdAsync(UserId);
                 if (user != null)
                 {
                     user.PhotoPath = file.FileName;
-                    await _manager.UpdateUserAsync(user);
+                    await _userManager.UpdateUserAsync(user);
                 }
 
             }

@@ -15,7 +15,6 @@ builder.Services.AddDbContext<AdoptapalDbContext>(optionsBuilder =>
         builder.Configuration.GetConnectionString("AppDb"));
     optionsBuilder.EnableSensitiveDataLogging();
 });
-builder.Services.AddScoped<NoticeManager>();
 builder.Services.AddScoped<UserManager>();
 builder.Services.AddScoped<AnimalManager>();
 

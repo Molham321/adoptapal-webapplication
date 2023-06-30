@@ -10,56 +10,37 @@
 <div>
     <h4>Animal</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Birthday)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Birthday)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnimalCategory)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnimalCategory)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsMale)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsMale)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Weight)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Weight)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageFilePath)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageFilePath)
-        </dd>
-    </dl>
+    <table class="table table-bordered">
+        <tr>
+            <th class="col-sm-2">Name</th>
+            <td class="col-sm-10">@Html.DisplayFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <th class="col-sm-2">Birthday</th>
+            <td class="col-sm-10">@Html.DisplayFor(model => model.Birthday)</td>
+        </tr>
+        <tr>
+            <th class="col-sm-2">Animal Category</th>
+            <td class="col-sm-10">@Html.DisplayFor(model => model.AnimalCategory)</td>
+        </tr>
+        <tr>
+            <th class="col-sm-2">Description</th>
+            <td class="col-sm-10">@Html.DisplayFor(model => model.Description)</td>
+        </tr>
+        <tr>
+            <th class="col-sm-2">Color</th>
+            <td class="col-sm-10">@Html.DisplayFor(model => model.Color)</td>
+        </tr>
+        <tr>
+            <th class="col-sm-2">Sex</th>
+            <td class="col-sm-10">@Html.DisplayFor(model => model.IsMale)</td>
+        </tr>
+        <tr>
+            <th class="col-sm-2">Weight</th>
+            <td class="col-sm-10">@Html.DisplayFor(model => model.Weight)</td>
+        </tr>
+    </table>
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

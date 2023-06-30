@@ -13,6 +13,8 @@ namespace Adoptapal.Business.Definitions
         [Display(Name = "Name")]
         public string Name { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Birthday { get; set; }
 
         public string? AnimalCategory { get; set; }
@@ -26,7 +28,7 @@ namespace Adoptapal.Business.Definitions
         public float? Weight { get; set; }
 
         public string? ImageFilePath { get; set; }
-
+        
         public User? User { get; set; }
     }
 }
