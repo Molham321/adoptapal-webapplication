@@ -3,9 +3,12 @@
 @{
     ViewData["Title"] = "UserProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var userId = Context.Session.GetString("UserId");
 }
 
-<h1>UserProfile</h1>
+<h1>Profile</h1>
+
+<hr />
 
 <section class="h-100 gradient-custom-2">
     <div class="container py-5 h-100">
@@ -18,7 +21,7 @@
                             {
                                 <img src="~/images/@Model.PhotoPath"
                                      alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-                                style="width: 150px; z-index: 1">
+                                style="width: 150px; height:200px; z-index: 1">
                             }else
                             {
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
@@ -26,11 +29,14 @@
                                      style="width: 150px; z-index: 1">
                             }
 
+                            @if (userId == Model.Id.ToString())
+                            {
+                                <button type="button" id="modalBtn" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                                        style="z-index: 1;">
+                                    Edit profile
+                                </button>
+                            }
 
-                            <button type="button" id="modalBtn" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-                                style="z-index: 1;">
-                            Edit profile
-                            </button>
                         </div>
                         <div class="ms-3" style="margin-top: 130px;">
                             <h5>@Model.Name</h5>
@@ -43,7 +49,7 @@
                     <div class="p-4 text-black" style="background-color: #f8f9fa;">
                         <div class="d-flex justify-content-end text-center py-1">
                             <div>
-                                <p class="mb-1 h5">4</p>
+                                <p class="mb-1 h5">@ViewBag.AnimalCount</p>
                                 <p class="small text-muted mb-0">Animals</p>
                             </div>
                         </div>
@@ -63,6 +69,31 @@
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <p class="lead fw-normal mb-0">Recent animals</p>
                             <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
+                        </div>
+
+                        <!-- Animal List -->
+                        <div class="row">
+                            <div class="col">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Animal Category</th>
+                                            <th>Color</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var animal in ViewBag.Animals)
+                                        {
+                                            <tr>
+                                                <td><a href="@Url.Action("Details", "Animals", new { id = animal.Id })">@animal.Name</a></td>
+                                                <td><a href="@Url.Action("Details", "Animals", new { id = animal.Id })">@animal.AnimalCategory</a></td>
+                                                <td><a href="@Url.Action("Details", "Animals", new { id = animal.Id })">@animal.Color</a></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

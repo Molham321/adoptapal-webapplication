@@ -43,6 +43,7 @@ namespace Adoptapal.Web.Controllers
         // GET: Animals/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
+
             if (id == null)
             {
                 return NotFound();

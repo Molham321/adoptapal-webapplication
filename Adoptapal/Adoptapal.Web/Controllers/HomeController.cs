@@ -25,23 +25,6 @@ namespace Adoptapal.Web.Controllers
                           Problem("Entity set 'AdoptapalDbContext.Animals' is null.");
         }
 
-        // GET: Animals/Details/5
-        public async Task<IActionResult> Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var animal = await _manager.GetAnimalByIdAsync(id.Value);
-            if (animal == null)
-            {
-                return NotFound();
-            }
-
-            return View(animal);
-        }
-
         // GET: User/Profile/5
         public async Task<IActionResult> UserProfile(Guid id)
         {

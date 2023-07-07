@@ -33,6 +33,14 @@ namespace Adoptapal.Web.Controllers
                 if(UserId != null)
                 {
                     User model = await _userManager.GetUserByIdAsync(UserId);
+
+                    // Get the user's animals
+                    List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(model);
+                    int animalCount = userAnimals.Count;
+
+                    ViewBag.AnimalCount = animalCount; // Pass the animal count to the view
+                    ViewBag.Animals = userAnimals; // Pass the animal count to the view
+
                     return View(model);
 
                 } else
@@ -46,6 +54,14 @@ namespace Adoptapal.Web.Controllers
                 {
                     return NotFound();
                 }
+
+                // Get the user's animals
+                List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(animal.User);
+                int animalCount = userAnimals.Count;
+
+                ViewBag.AnimalCount = animalCount; // Pass the animal count to the view
+                ViewBag.Animals = userAnimals; // Pass the animal count to the view
+
 
                 return View(animal.User);
             }

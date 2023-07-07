@@ -3,12 +3,13 @@
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var userId = Context.Session.GetString("UserId");
+    var isOwner = userId != null && Model?.User?.Id.ToString() == userId;
 }
 
 <h1>Details</h1>
 
 <div>
-    <h4>Animal</h4>
     <hr />
     <table class="table table-bordered">
         <tr>
@@ -33,7 +34,16 @@
         </tr>
         <tr>
             <th class="col-sm-2">Sex</th>
-            <td class="col-sm-10">@Html.DisplayFor(model => model.IsMale)</td>
+            <td class="col-sm-10">
+                @if (Model.IsMale == true)
+                {
+                    @Html.Raw("Male")
+                }
+                else
+                {
+                    @Html.Raw("Female")
+                }
+            </td>
         </tr>
         <tr>
             <th class="col-sm-2">Weight</th>
@@ -41,8 +51,43 @@
         </tr>
     </table>
 
+    <div class="form-group col-md-6">
+        <input type="hidden" asp-for="Id" />
+        <a asp-action="UserProfile" asp-controller="Profile" asp-route-id="@Model.Id" class="btn btn-danger">User profile</a>
+        <button class="btn btn-primary" id="Submit_ID">Adopt me</button>
+    </div>
+
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+@if (isOwner)
+{
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+        <a asp-action="Index" class="btn btn-secondary ml-2">Back to List</a>
+    </div>
+}
+else
+{
+    <div>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary ml-2">Back to List</a>
+    </div>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        document.querySelector("#Submit_ID").addEventListener("click", composeEmail);
+
+        function composeEmail() {
+            var emailAddress = 'ziel@example.com';
+            var subject = 'Dies ist der Betreff';
+            var body = 'Dies ist der Inhalt der E-Mail.';
+
+            var mailtoLink = 'mailto:' + emailAddress +
+                '?subject=' + encodeURIComponent(subject) +
+                '&body=' + encodeURIComponent(body);
+
+            window.location.href = mailtoLink;
+        }
+    </script>
+}
+
