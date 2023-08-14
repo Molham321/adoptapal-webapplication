@@ -17,12 +17,12 @@ builder.Services.AddDbContext<AdoptapalDbContext>(optionsBuilder =>
 });
 builder.Services.AddScoped<UserManager>();
 builder.Services.AddScoped<AnimalManager>();
-
 builder.Services.AddScoped<IFileUploadService, LocalFileUploadService>();
 
-//Add Session
+
 builder.Services.AddDistributedMemoryCache();
 
+//Add Session
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromHours(1);

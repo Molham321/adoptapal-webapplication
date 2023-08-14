@@ -10,6 +10,9 @@
 <h1>Details</h1>
 
 <div>
+    <div class="text-center">
+        <img src="~/images/@Model.ImageFilePath" alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2" style="width: 100%; height: 100%; z-index: 1">
+    </div>
     <hr />
     <table class="table table-bordered">
         <tr>
@@ -51,26 +54,29 @@
         </tr>
     </table>
 
-    <div class="form-group col-md-6">
+    <div class="form-group row">
         <input type="hidden" asp-for="Id" />
-        <a asp-action="UserProfile" asp-controller="Profile" asp-route-id="@Model.Id" class="btn btn-danger">User profile</a>
-        <button class="btn btn-primary" id="Submit_ID">Adopt me</button>
+        <div class="col-md-6 mb-2">
+            <a asp-action="UserProfile" asp-controller="Profile" asp-route-id="@Model.Id" class="btn btn-danger btn-block">User profile</a>
+            <button class="btn btn-primary btn-block ml-2" id="Submit_ID">Adopt me</button>
+        </div>
     </div>
 
 </div>
-@if (isOwner)
-{
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-        <a asp-action="Index" class="btn btn-secondary ml-2">Back to List</a>
+
+<div class="form-group row">
+    <div class="col-md-6">
+        @if (isOwner)
+        {
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-secondary">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary ml-2">Back to List</a>
+        }
+        else
+        {
+            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Back to List</a>
+        }
     </div>
-}
-else
-{
-    <div>
-        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary ml-2">Back to List</a>
-    </div>
-}
+</div>
 
 @section Scripts {
     <script type="text/javascript">
