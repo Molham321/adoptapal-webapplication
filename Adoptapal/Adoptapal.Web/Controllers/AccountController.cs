@@ -101,14 +101,15 @@ namespace Adoptapal.Web.Controllers
         {
             User user = await _manager.GetUserByIdAsync(model.Id);
 
-            //check validation
-            if (ModelState.IsValid)
-            {
                 // update user info
                 user.Name = model.Name;
                 user.Email = model.Email;
-                user.Password = UserManager.HashPassword(model.Password);
                 user.PhoneNumber = model.PhoneNumber;
+
+            if(model.Password != null)
+            {
+                user.Password = UserManager.HashPassword(model.Password);
+            }
 
 
                 // Add or update user address
@@ -140,10 +141,26 @@ namespace Adoptapal.Web.Controllers
                 HttpContext.Session.SetString("UserId", model.Id.ToString()); // Eine Sitzungsvariable erstellen
 
                 return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckPassword(string enteredPassword)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Json(new { success = false, message = "User not authenticated." });
             }
 
-            ModelState.AddModelError("", "Is not Valid.");
-            return View(model); // Wenn das Model ungültig ist, wird es erneut angezeigt
+            User user = await _manager.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return Json(new { success = false, message = "User not found." });
+            }
+
+            bool isPasswordMatch = UserManager.CheckPassword(user, enteredPassword);
+
+            return Json(new { success = isPasswordMatch });
         }
 
         [HttpPost]

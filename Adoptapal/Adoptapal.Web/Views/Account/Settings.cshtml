@@ -35,12 +35,6 @@
         </div>
 
         <div class="form-group col-md-6">
-            <label class="control-label">Confirm Password</label>
-            <input id="ConfirmPassword_Id" type="password" class="form-control" />
-            <span id="ConfirmPasswordTextDanger" class="text-danger"></span>
-        </div>
-
-        <div class="form-group col-md-6">
             <label asp-for="PhoneNumber" class="control-label"></label>
             <input asp-for="PhoneNumber" class="form-control" />
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
@@ -86,35 +80,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script type="text/javascript">
-        const confirmPassword = document.querySelector("#ConfirmPassword_Id");
-        const password = document.querySelector("#Password_ID");
-        const submit = document.querySelector("#Submit_ID");
-        const confirmPasswordTextDanger = document.querySelector("#ConfirmPasswordTextDanger");
 
-
-        password.addEventListener("input", checkPasswords)
-        confirmPassword.addEventListener("input", checkPasswords)
-        submit.addEventListener("click", confirm)
-
-        function checkPasswords() {
-            if (password.value != confirmPassword.value) {
-                confirmPassword.style.borderColor = "red";
-                submit.disabled = true;
-                confirmPasswordTextDanger.innerText = 'Passwords do not match';
-
-            } else {
-                confirmPassword.style.borderColor = "green";
-                submit.disabled = false;
-                confirmPasswordTextDanger.innerText = '';
-
-            }
-        }
-
-        function confirm() {
-            alert("you have successfully updated your data");
-        }
-
-        //----------------------------------------------------
 
         $("#modalBtn").click(function () {
             $("#testModal").modal("show");
