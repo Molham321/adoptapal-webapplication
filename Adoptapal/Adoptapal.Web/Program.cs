@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AdoptapalDbContext>(optionsBuilder =>
 });
 builder.Services.AddScoped<UserManager>();
 builder.Services.AddScoped<AnimalManager>();
+builder.Services.AddScoped<MessageBoardManager>();
 builder.Services.AddScoped<IFileUploadService, LocalFileUploadService>();
 
 
