@@ -16,9 +16,19 @@ namespace Adoptapal.Web.Controllers
         }
 
         // GET: Animals
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SearchString)
         {
-            var animals = await _manager.GetAllAnimalsAsync();
+            var allAnimals = await _manager.GetAllAnimalsAsync();
+
+
+            ViewData["CurrentFilter"] = SearchString;
+            var animals = from b in allAnimals select b;
+
+            if(!String.IsNullOrEmpty(SearchString))
+            {
+                animals = animals.Where(b => b.AnimalCategory.Contains(SearchString));
+            }
+
 
             return animals != null ?
                           View(animals) :
