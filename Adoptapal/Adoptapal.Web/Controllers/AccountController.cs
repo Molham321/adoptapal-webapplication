@@ -46,6 +46,7 @@ namespace Adoptapal.Web.Controllers
             return View(model);
         }
 
+        // GET: /Account/ForgotPassword
         public IActionResult Register()
         {
             return View();
@@ -81,6 +82,27 @@ namespace Adoptapal.Web.Controllers
             HttpContext.Session.Remove("UserId");
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        // POST: /Account/ForgotPassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            // TODO: Implement the logic to send a password reset email to the provided email address.
+
+            ViewData["Message"] = "Password reset email sent.";
+            return RedirectToAction("ForgotPasswordConfirmation");
+        }
+
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
         }
 
         public async Task<IActionResult> Settings()
