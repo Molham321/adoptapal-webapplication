@@ -1,6 +1,8 @@
 ﻿using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 
 namespace Adoptapal.Web.Controllers
@@ -94,7 +96,50 @@ namespace Adoptapal.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(string email)
         {
-            // TODO: Implement the logic to send a password reset email to the provided email address.
+            // Validate the email address (you might want to do more thorough validation)
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                ViewData["ErrorMessage"] = "Please provide a valid email address.";
+                return View();
+            }
+
+            // Generate a unique token (this would be used in the password reset link)
+            string resetToken = Guid.NewGuid().ToString();
+
+            // TODO: Save the resetToken in your data store along with the user's email address
+            var user = await _manager.FindUserByEmailAsync(email);
+            if(user != null)
+            {
+                user.ResetToken = resetToken;
+                await _manager.UpdateUserAsync(user);
+            }
+
+            // Send the password reset email
+            try
+            {
+                var smtpClient = new SmtpClient("smtp.example.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("your_username", "your_password"),
+                    EnableSsl = true,
+                };
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("from@example.com"),
+                    Subject = "Password Reset",
+                    Body = $"Click the following link to reset your password: https://example.com/Account/ResetPassword?token={resetToken}"
+                };
+                mailMessage.To.Add(email);
+
+                await smtpClient.SendMailAsync(mailMessage);
+
+                ViewData["Message"] = "Password reset email sent.";
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "An error occurred while sending the email.";
+            }
 
             ViewData["Message"] = "Password reset email sent.";
             return RedirectToAction("ForgotPasswordConfirmation");

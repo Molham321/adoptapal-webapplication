@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace Adoptapal.Business.Definitions
 {
@@ -23,6 +24,8 @@ namespace Adoptapal.Business.Definitions
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$",
         ErrorMessage = "The password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character.")]
         public string? Password { get; set; }
+
+        public string? ResetToken { get; set; }
 
         [Display(Name = "Phone Number")]
         public string? PhoneNumber { get; set; }
