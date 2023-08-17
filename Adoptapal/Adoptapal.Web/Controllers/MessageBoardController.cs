@@ -33,6 +33,8 @@ namespace Adoptapal.Web.Controllers
         // GET: MessageBoard/Create
         public IActionResult Create()
         {
+            userId = HttpContext.Session.GetString("UserId");
+
             return View();
         }
 
@@ -46,6 +48,8 @@ namespace Adoptapal.Web.Controllers
                 if (userId != null)
                 {
                     post.User = await _userManager.GetUserByIdAsync(userId);
+                    post.PostTime = DateTime.Now;
+                    Console.Write(post);
                     await _manager.CreatePostAsync(post);
                     return RedirectToAction(nameof(Index));
                 }
