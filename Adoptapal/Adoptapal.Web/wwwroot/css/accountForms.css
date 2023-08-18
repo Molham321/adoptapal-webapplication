@@ -37,3 +37,46 @@ h1, h2, h3 {
     background-color: var(--LightModeSecondary);
     color: white;
 }
+
+.filter-form {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Schatten hinzufügen */
+    display: flex; /* In eine Zeile umwandeln */
+    flex-wrap: wrap; /* Bei Bedarf auf mehrere Zeilen umbrechen */
+    align-items: center; /* Vertikal zentrieren */
+    justify-content: space-between; /* Gleichmäßigen Abstand zwischen Elementen */
+}
+
+    /* Stil für die Formularfelder */
+    .filter-form select,
+    .filter-form input[type="date"] {
+        padding: 10px;
+        border: 1px solid var(--MainBlue);
+        border-radius: 5px;
+        background-color: white;
+        font-size: 16px;
+        margin-right: 10px; /* Abstand zwischen den Formularfeldern */
+    }
+
+    /* Stil für die Submit-Schaltfläche */
+    .filter-form input[type="submit"] {
+        padding: 10px 20px;
+        background-color: var(--MainBlue);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .filter-form input[type="submit"]:hover {
+        background-color: var(--LightModeSecondary);
+    }
+
+#map {
+    margin-top: 20px;
+    margin-bottom: 70px;
+}
