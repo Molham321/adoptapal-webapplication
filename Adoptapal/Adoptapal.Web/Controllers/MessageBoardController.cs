@@ -21,6 +21,7 @@ namespace Adoptapal.Web.Controllers
             _userManager = userManager;
         }
 
+        // GET: MessageBoards
         public async Task<IActionResult> Index()
         {
             var posts = await _manager.GetAllPostsAsync();
@@ -49,7 +50,7 @@ namespace Adoptapal.Web.Controllers
                 {
                     post.User = await _userManager.GetUserByIdAsync(userId);
                     post.PostTime = DateTime.Now;
-                    Console.Write(post);
+                    // Console.Write(post);
                     await _manager.CreatePostAsync(post);
                     return RedirectToAction(nameof(Index));
                 }
@@ -57,6 +58,49 @@ namespace Adoptapal.Web.Controllers
                 {
                     // return RedirectToAction("Login", "Account");
                 }
+            }
+
+            return View(post);
+        }
+
+        // GET: MessageBoard/Delete/ID
+        public async Task<IActionResult> Delete(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = await _manager.GetPostByIdAsync(id.Value);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return View(post);
+        }
+
+        // POST: MessageBoard/Delete/ID
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            await _manager.DeletePostAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: MessageBoards/Details/ID
+        public async Task<IActionResult> Details(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = await _manager.GetPostByIdAsync(id.Value);
+            if (post == null)
+            {
+                return NotFound();
             }
 
             return View(post);
