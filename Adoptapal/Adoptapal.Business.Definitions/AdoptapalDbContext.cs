@@ -20,10 +20,14 @@ namespace Adoptapal.Business.Definitions
 
             // messageBoard ---------
             modelBuilder.ApplyConfiguration(new AnimalConfiguration());
+
+            // comment --------------
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<Animal> Animals { get; set; }
         public DbSet<MessageBoard> MessageBoards { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }
