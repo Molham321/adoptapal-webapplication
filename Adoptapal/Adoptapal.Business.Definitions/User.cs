@@ -18,7 +18,6 @@ namespace Adoptapal.Business.Definitions
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        //[Required(ErrorMessage = "Password is Required")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$",
