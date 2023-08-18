@@ -39,16 +39,14 @@ h1, h2, h3 {
 }
 
 .filter-form {
-    margin: 20px;
-    padding: 20px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Schatten hinzufügen */
-    display: flex; /* In eine Zeile umwandeln */
-    flex-wrap: wrap; /* Bei Bedarf auf mehrere Zeilen umbrechen */
-    align-items: center; /* Vertikal zentrieren */
-    justify-content: space-between; /* Gleichmäßigen Abstand zwischen Elementen */
 }
+
+    .filter-form label {
+        margin-left: 10px;
+    }
 
     /* Stil für die Formularfelder */
     .filter-form select,
@@ -58,23 +56,23 @@ h1, h2, h3 {
         border-radius: 5px;
         background-color: white;
         font-size: 16px;
-        margin-right: 10px; /* Abstand zwischen den Formularfeldern */
+        margin-left: 10px; /* Abstand zwischen den Formularfeldern */
     }
 
-    /* Stil für die Submit-Schaltfläche */
-    .filter-form input[type="submit"] {
-        padding: 10px 20px;
-        background-color: var(--MainBlue);
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
+/* Stil für die Submit-Schaltfläche */
+.filter-form input[type="submit"] {
+    padding: 10px 20px;
+    background-color: var(--MainBlue);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-    .filter-form input[type="submit"]:hover {
-        background-color: var(--LightModeSecondary);
-    }
+.filter-form input[type="submit"]:hover {
+    background-color: var(--LightModeSecondary);
+}
 
 #map {
     margin-top: 20px;
