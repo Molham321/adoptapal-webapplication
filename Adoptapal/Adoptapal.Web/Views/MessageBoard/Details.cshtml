@@ -1,7 +1,7 @@
 ﻿@model Adoptapal.Business.Definitions.MessageBoard
 
 @{
-    ViewData["Title"] = "Details";
+    // ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var userId = Context.Session.GetString("UserId");
     var isOwner = userId != null && Model?.User?.Id.ToString() == userId;
@@ -35,17 +35,22 @@
 
 <!-- using Partial Views here...? (because multiple models are necessary) -->
 
-<div class="collapse col-md-8 offset-md-2" id="collapseTextarea">
-@*    <form asp-action="CreateComment" enctype="multipart/form-data">
+@*<div class="collapse col-md-8 offset-md-2" id="collapseTextarea">
+    <form asp-action="CreateComment" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <textarea asp-for="Comment" class="form-control"></textarea>
-            <span asp-validation-for="Comment" class="text-danger"></span>
+            <textarea asp-for="Comment.Text" class="form-control"></textarea>
+            <span asp-validation-for="Comment.Text" class="text-danger"></span>
         </div>
         <div class="form-group mt-2">
             <div class="btn-group" role="group" aria-label="Button Group">
                 <button type="submit" class="btn btn-primary">Create</button>
             </div>
         </div>
-    </form>*@
+    </form>
 </div>
+
+@foreach (var item in Model.Comments)
+{
+    <p>@Html.DisplayFor(modelItem => item.Text)</p>
+}*@

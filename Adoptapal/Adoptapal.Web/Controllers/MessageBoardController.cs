@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
+using Microsoft.Extensions.Hosting;
+using Adoptapal.Web.Models;
 
 namespace Adoptapal.Web.Controllers
 {
@@ -9,16 +11,18 @@ namespace Adoptapal.Web.Controllers
     {
         private readonly MessageBoardManager _manager;
         private readonly UserManager _userManager;
+        private readonly CommentManager _commentManager;
         // private readonly IFileUploadService _uploadService;
 
         private static string? userId;
         // public static string? FilePath;
 
 
-        public MessageBoardController(MessageBoardManager manager, UserManager userManager) : base()
+        public MessageBoardController(MessageBoardManager manager, UserManager userManager, CommentManager commentManager) : base()
         {
             _manager = manager;
             _userManager = userManager;
+            _commentManager = commentManager;
         }
 
         // GET: MessageBoards
@@ -104,6 +108,41 @@ namespace Adoptapal.Web.Controllers
             }
 
             return View(post);
+        }
+
+        // POST: Comment/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateComment(Comment comment, Guid postId)
+        {
+            if (ModelState.IsValid)
+            {
+                if (userId != null)
+                {
+                    comment.Post = await _manager.GetPostByIdAsync(postId);
+                    comment.User = await _userManager.GetUserByIdAsync(userId);
+                    comment.PostTime = DateTime.Now;
+                    // Console.Write(post);
+                    await _commentManager.CreateCommentAsync(comment);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // return RedirectToAction("Login", "Account");
+                }
+            }
+
+            return View(comment);
+        }
+
+        // GET: Comments
+        public async Task<IActionResult> PostComments(MessageBoard post)
+        {
+            var commentsByPost = await _commentManager.GetAllPostCommentsByPostAsync(post);
+
+            return commentsByPost != null ?
+                                   View(commentsByPost) :
+                                   Problem("Entity set 'AdoptapalDbContext.Comments' is null.");
         }
     }
 }
