@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Adoptapal.Business.Definitions.MessageBoard>
+
+@{
+    // ViewData["Title"] = "Message Board";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userId = Context.Session.GetString("UserId");
+}
+
+<h1>Schwarzes Brett</h1>
+
+<hr />
+
+@{
+    if(userId != null)
+    {
+        <div class="text-center mb-4">
+            <a asp-action="Create" class="btn btn-primary">Create New</a>
+        </div>
+    }
+}
+
+<div class="row justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body" max-height="50px">
+                    <div class="text-start">
+                        <h3 class="blockquote">@Html.DisplayFor(modelItem => item.Title)</h3>
+                    </div>
+                    <div class="text-start">
+                        <p class="blockquote-footer">posted by @Html.DisplayFor(modelItem => item.User.Name) (@Html.DisplayFor(modelItem => item.User.Email))</p>
+                    </div>
+                    <hr>
+                    <div class="text-start">
+                        <p class="card-title">@Html.DisplayFor(modelItem => item.Text)</p>
+                    </div>
+                    <div class="text-start mt-3">
+                        <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-secondary">Details</a>
+                        @if (userId != null && userId == item.User.Id.ToString())
+                        {
+                            <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger">Delete</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
