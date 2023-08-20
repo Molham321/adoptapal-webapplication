@@ -33,6 +33,15 @@
 </div>
 <br />
 
+<!-- display Comments this way, creating over separate view maybe -->
+
+@{
+    foreach(var item in Model.Comments)
+    {
+        <p>@Html.DisplayFor(modelItem => item.Text)</p>
+    }
+}
+
 <!-- using Partial Views here...? (because multiple models are necessary) -->
 
 @*<div class="collapse col-md-8 offset-md-2" id="collapseTextarea">
@@ -48,9 +57,4 @@
             </div>
         </div>
     </form>
-</div>
-
-@foreach (var item in Model.Comments)
-{
-    <p>@Html.DisplayFor(modelItem => item.Text)</p>
-}*@
+</div>*@

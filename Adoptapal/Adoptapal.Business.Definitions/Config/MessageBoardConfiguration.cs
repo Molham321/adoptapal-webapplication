@@ -11,6 +11,7 @@ namespace Adoptapal.Business.Definitions.Config
         {
             builder.ToTable("Post");
             builder.HasOne(it => it.User).WithMany().IsRequired(false);
+            builder.HasMany(it => it.Comments).WithOne(it => it.Post).HasForeignKey(it => it.Id);
         }
     }
 }

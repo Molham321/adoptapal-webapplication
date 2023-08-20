@@ -17,5 +17,7 @@ namespace Adoptapal.Business.Definitions
         public DateTime? PostTime { get; set; }
 
         public User? User { get; set; }
+
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }

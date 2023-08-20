@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Adoptapal.Business.Definitions.Comment>
+
+@{
+    // ViewData["Title"] = "PostComments";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+    var userId = Context.Session.GetString("UserId");
+}
+
+<h2>Comments</h2>
+
+@foreach (var item in Model)
+{
+    <p>@Html.DisplayFor(modelItem => item.Text)</p>
+}
