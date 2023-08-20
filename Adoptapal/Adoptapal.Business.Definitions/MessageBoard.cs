@@ -18,6 +18,6 @@ namespace Adoptapal.Business.Definitions
 
         public User? User { get; set; }
 
-        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<Comment>? Comments { get; set; }
     }
 }
