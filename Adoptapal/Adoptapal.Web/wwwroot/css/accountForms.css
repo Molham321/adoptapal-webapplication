@@ -1,0 +1,80 @@
+﻿
+/* Farben definieren */
+:root {
+    --MainBlue: #00ADB5;
+    --LightModeSecondary: #176B87;
+    --LightModeText: #001C30;
+    --BackgroundGreyOpacity: rgba(38, 62, 70, 0.4);
+    --BackgroundWhite: #EEEEEE;
+}
+
+/* Dein bestehendes Styling hier beibehalten und die Farben verwenden */
+
+/* Hintergrundfarbe ändern */
+body {
+    background-color: var(--BackgroundWhite);
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+h1, h2, h3 {
+    font-family: 'Roboto', sans-serif;
+}
+
+.card {
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Beispiel für Hover-Effekte */
+.btn {
+    background-color: var(--MainBlue);
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--LightModeSecondary);
+    color: white;
+}
+
+.filter-form {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Schatten hinzufügen */
+}
+
+    .filter-form label {
+        margin-left: 10px;
+    }
+
+    /* Stil für die Formularfelder */
+    .filter-form select,
+    .filter-form input[type="date"] {
+        padding: 10px;
+        border: 1px solid var(--MainBlue);
+        border-radius: 5px;
+        background-color: white;
+        font-size: 16px;
+        margin-left: 10px; /* Abstand zwischen den Formularfeldern */
+    }
+
+/* Stil für die Submit-Schaltfläche */
+.filter-form input[type="submit"] {
+    padding: 10px 20px;
+    background-color: var(--MainBlue);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-form input[type="submit"]:hover {
+    background-color: var(--LightModeSecondary);
+}
+
+#map {
+    margin-top: 20px;
+    margin-bottom: 70px;
+}

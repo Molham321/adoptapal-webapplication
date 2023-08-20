@@ -1,6 +1,7 @@
 ﻿using Adoptapal.Business.Implementations;
 using Adoptapal.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 
 namespace Adoptapal.Web.Controllers
@@ -9,16 +10,46 @@ namespace Adoptapal.Web.Controllers
     {
         private readonly AnimalManager _manager;
 
-
         public HomeController(AnimalManager manager) : base()
         {
             _manager = manager;
         }
 
         // GET: Animals
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string AnimalCategory, bool? IsMale, DateTime? Birthday)
         {
-            var animals = await _manager.GetAllAnimalsAsync();
+            var allAnimals = await _manager.GetAllAnimalsAsync();
+
+            ViewData["IsMaleValue"] = IsMale;
+
+            var animals = from b in allAnimals select b;
+
+            if (!String.IsNullOrEmpty(AnimalCategory))
+            {
+                ViewData["AnimalCategoryFilter"] = AnimalCategory;
+                animals = animals.Where(b => b.AnimalCategory.Contains(AnimalCategory));
+            }
+
+            if (IsMale.HasValue)
+            {
+
+                if (IsMale == true)
+                {
+                    ViewData["IsMaleFilter"] = "Male";
+                }
+                else
+                {
+                    ViewData["IsMaleFilter"] = "Female";
+                }
+
+                animals = animals.Where(b => b.IsMale == IsMale.Value);
+            }
+
+            if (Birthday.HasValue)
+            {
+                ViewData["BirthdayFilter"] = Birthday?.ToString("yyyy-MM-dd");
+                animals = animals.Where(b => b.Birthday >= Birthday.Value && b.Birthday <= DateTime.Today);
+            }
 
             return animals != null ?
                           View(animals) :

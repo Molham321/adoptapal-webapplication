@@ -4,6 +4,7 @@ using Adoptapal.Business.Definitions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Adoptapal.Business.Definitions.Migrations
 {
     [DbContext(typeof(AdoptapalDbContext))]
-    partial class AdoptapalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230818191622_User")]
+    partial class User
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,66 +96,6 @@ namespace Adoptapal.Business.Definitions.Migrations
                     b.ToTable("Tiere", (string)null);
                 });
 
-            modelBuilder.Entity("Adoptapal.Business.Definitions.Comment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("MessageBoardId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("PostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("PostTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MessageBoardId");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Kommentare", (string)null);
-                });
-
-            modelBuilder.Entity("Adoptapal.Business.Definitions.MessageBoard", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("PostTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("MessageBoards");
-                });
-
             modelBuilder.Entity("Adoptapal.Business.Definitions.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -199,34 +142,6 @@ namespace Adoptapal.Business.Definitions.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Adoptapal.Business.Definitions.Comment", b =>
-                {
-                    b.HasOne("Adoptapal.Business.Definitions.MessageBoard", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("MessageBoardId");
-
-                    b.HasOne("Adoptapal.Business.Definitions.MessageBoard", "Post")
-                        .WithMany()
-                        .HasForeignKey("PostId");
-
-                    b.HasOne("Adoptapal.Business.Definitions.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Post");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Adoptapal.Business.Definitions.MessageBoard", b =>
-                {
-                    b.HasOne("Adoptapal.Business.Definitions.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Adoptapal.Business.Definitions.User", b =>
                 {
                     b.HasOne("Adoptapal.Business.Definitions.Address", "Address")
@@ -234,11 +149,6 @@ namespace Adoptapal.Business.Definitions.Migrations
                         .HasForeignKey("AddressId");
 
                     b.Navigation("Address");
-                });
-
-            modelBuilder.Entity("Adoptapal.Business.Definitions.MessageBoard", b =>
-                {
-                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,13 +1,9 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Adoptapal.Business.Definitions
+namespace Adoptapal.Web.Models
 {
-    public class User
+    public class RegisterViewModel
     {
-        public Guid Id { get; set; }
-
         [Required(AllowEmptyStrings = false, ErrorMessage = "Name is Required")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2}.", MinimumLength = 3)]
         [Display(Name = "Name")]
@@ -18,20 +14,18 @@ namespace Adoptapal.Business.Definitions
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "Password is Required")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$",
         ErrorMessage = "The password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character.")]
-        public string? Password { get; set; }
+        public string Password { get; set; }
 
-        public string? ResetToken { get; set; }
+        [Required(ErrorMessage = "Confirm Password is Required")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
 
-        [Display(Name = "Phone Number")]
-        public string? PhoneNumber { get; set; }
-
-        public string? PhotoPath { get; set; }
-
-        [Display(Name = "Address")]
-        public Address? Address { get; set; }
     }
 }

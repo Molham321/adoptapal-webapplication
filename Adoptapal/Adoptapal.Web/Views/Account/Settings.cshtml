@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" href="~/css/accountForms.css" asp-append-version="true" />
+
 <h1>Settings</h1>
 
 <hr />
@@ -28,16 +30,15 @@
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
-        <div class="form-group col-md-6">
+        <div class="form-outline mb-2">
             <label asp-for="Password" class="control-label"></label>
-            <input asp-for="Password" id="Password_ID" class="form-control" />
+            <div class="input-group">
+                <input asp-for="Password" type="password" id="password_Id" class="form-control"/>
+                <button type="button" class="btn btn-outline-secondary" id="password-toggle">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
             <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-
-        <div class="form-group col-md-6">
-            <label class="control-label">Confirm Password</label>
-            <input id="ConfirmPassword_Id" type="password" class="form-control" />
-            <span id="ConfirmPasswordTextDanger" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6">
@@ -85,51 +86,6 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script type="text/javascript">
-        const confirmPassword = document.querySelector("#ConfirmPassword_Id");
-        const password = document.querySelector("#Password_ID");
-        const submit = document.querySelector("#Submit_ID");
-        const confirmPasswordTextDanger = document.querySelector("#ConfirmPasswordTextDanger");
-
-
-        password.addEventListener("input", checkPasswords)
-        confirmPassword.addEventListener("input", checkPasswords)
-        submit.addEventListener("click", confirm)
-
-        function checkPasswords() {
-            if (password.value != confirmPassword.value) {
-                confirmPassword.style.borderColor = "red";
-                submit.disabled = true;
-                confirmPasswordTextDanger.innerText = 'Passwords do not match';
-
-            } else {
-                confirmPassword.style.borderColor = "green";
-                submit.disabled = false;
-                confirmPasswordTextDanger.innerText = '';
-
-            }
-        }
-
-        function confirm() {
-            alert("you have successfully updated your data");
-        }
-
-        //----------------------------------------------------
-
-        $("#modalBtn").click(function () {
-            $("#testModal").modal("show");
-        })
-
-        $('[data-dismiss="modal"]').each(function () {
-            $(this).click(function () {
-                $("#testModal").modal("hide");
-            });
-        })
-
-        $("#saveButton").click(function () {
-            alert("Saved");
-            $("#testModal").modal("hide");
-        });
-
-    </script>
+    <script src="~/js/togglePasswordVisibility.js"></script>
+    <script src="~/js/modal.js"></script>
 }

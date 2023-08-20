@@ -4,7 +4,48 @@
     ViewData["Title"] = "Home Page";
 }
 
+<link rel="stylesheet" href="~/css/accountForms.css" asp-append-version="true" />
+
 <h1>Home</h1>
+
+<form asp-action="Index" method="get" class="filter-form">
+    <div class="row align-items-center">
+        <div class="col-md-3 mb-3">
+            <label for="AnimalCategory">Animal Category:</label>
+            <select name="AnimalCategory" class="form-control">
+                <option value="@ViewData["AnimalCategoryFilter"]" selected>@ViewData["AnimalCategoryFilter"]</option>
+                <option value="">All</option>
+                <option value="Dog">Dog</option>
+                <option value="Cat">Cat</option>
+                <option value="Bird">Bird</option>
+                <option value="Rabbit">Rabbit</option>
+                <option value="Fish">Fish</option>
+                <option value="Hamster">Hamster</option>
+                <option value="GuineaPig">Guinea Pig</option>
+                <option value="Reptile">Reptile</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="IsMale">Gender:</label>
+            <select name="IsMale" class="form-control">
+                <option value="@ViewData["IsMaleValue"]" selected>@ViewData["IsMaleFilter"]</option>
+                <option value="">All</option>
+                <option value="true">Male</option>
+                <option value="false">Female</option>
+            </select>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="Birthday">Birthday:</label>
+            <input type="date" name="Birthday" value="@ViewData["BirthdayFilter"]" class="form-control" />
+        </div>
+        <div class="col-md-3 mb-3">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn btn-primary btn-block">Search</button>
+        </div>
+    </div>
+</form>
+
 
 <hr />
 
@@ -93,7 +134,7 @@
 
     map.on('click', onMapClick);
 
-    // animal location
+    // TODO: animal location 
     var jsModel = @Html.Raw(Json.Serialize(Model));
     console.log(jsModel);
 

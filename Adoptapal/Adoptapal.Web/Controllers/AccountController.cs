@@ -1,6 +1,8 @@
 ﻿using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 
 namespace Adoptapal.Web.Controllers
@@ -46,6 +48,7 @@ namespace Adoptapal.Web.Controllers
             return View(model);
         }
 
+        // GET: /Account/ForgotPassword
         public IActionResult Register()
         {
             return View();
@@ -83,6 +86,70 @@ namespace Adoptapal.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        // POST: /Account/ForgotPassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            // Validate the email address (you might want to do more thorough validation)
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                ViewData["ErrorMessage"] = "Please provide a valid email address.";
+                return View();
+            }
+
+            // Generate a unique token (this would be used in the password reset link)
+            string resetToken = Guid.NewGuid().ToString();
+
+            // TODO: Save the resetToken in your data store along with the user's email address
+            var user = await _manager.FindUserByEmailAsync(email);
+            if(user != null)
+            {
+                user.ResetToken = resetToken;
+                await _manager.UpdateUserAsync(user);
+            }
+
+            // Send the password reset email
+            try
+            {
+                var smtpClient = new SmtpClient("smtp.example.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("your_username", "your_password"),
+                    EnableSsl = true,
+                };
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("from@example.com"),
+                    Subject = "Password Reset",
+                    Body = $"Click the following link to reset your password: https://example.com/Account/ResetPassword?token={resetToken}"
+                };
+                mailMessage.To.Add(email);
+
+                await smtpClient.SendMailAsync(mailMessage);
+
+                ViewData["Message"] = "Password reset email sent.";
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "An error occurred while sending the email.";
+            }
+
+            ViewData["Message"] = "Password reset email sent.";
+            return RedirectToAction("ForgotPasswordConfirmation");
+        }
+
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Settings()
         {
             userId = HttpContext.Session.GetString("UserId");
@@ -101,14 +168,15 @@ namespace Adoptapal.Web.Controllers
         {
             User user = await _manager.GetUserByIdAsync(model.Id);
 
-            //check validation
-            if (ModelState.IsValid)
-            {
                 // update user info
                 user.Name = model.Name;
                 user.Email = model.Email;
-                user.Password = UserManager.HashPassword(model.Password);
                 user.PhoneNumber = model.PhoneNumber;
+
+            if(model.Password != null)
+            {
+                user.Password = UserManager.HashPassword(model.Password);
+            }
 
 
                 // Add or update user address
@@ -140,10 +208,26 @@ namespace Adoptapal.Web.Controllers
                 HttpContext.Session.SetString("UserId", model.Id.ToString()); // Eine Sitzungsvariable erstellen
 
                 return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckPassword(string enteredPassword)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Json(new { success = false, message = "User not authenticated." });
             }
 
-            ModelState.AddModelError("", "Is not Valid.");
-            return View(model); // Wenn das Model ungültig ist, wird es erneut angezeigt
+            User user = await _manager.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return Json(new { success = false, message = "User not found." });
+            }
+
+            bool isPasswordMatch = UserManager.CheckPassword(user, enteredPassword);
+
+            return Json(new { success = isPasswordMatch });
         }
 
         [HttpPost]
