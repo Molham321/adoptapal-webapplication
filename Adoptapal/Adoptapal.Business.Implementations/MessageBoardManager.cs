@@ -25,7 +25,7 @@ namespace Adoptapal.Business.Implementations
 
         public async Task<MessageBoard> GetPostByIdAsync(Guid id)
         {
-            return await _container.MessageBoards.Include(it => it.Comments).ThenInclude(it => it.User).FirstOrDefaultAsync(m => m.Id == id);
+            return await _container.MessageBoards.Include(it => it.User).FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task CreatePostAsync(MessageBoard messageBoard)

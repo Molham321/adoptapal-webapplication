@@ -13,7 +13,7 @@
     <div class="card mb-4">
         <div class="card-body" max-height="50px">
             <div class="text-start">
-                <h3 class="card-title">@Html.DisplayFor(model => model.Title)</h3>
+                <h3 class="blockquote">@Html.DisplayFor(model => model.Title)</h3>
             </div>
             <div class="text-start">
                 <p class="blockquote-footer">posted by @Html.DisplayFor(model => model.User.Name) (@Html.DisplayFor(model => model.User.Email))</p>
@@ -30,24 +30,24 @@
 @*    <button class="btn btn-primary col-md-8 offset-md-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTextarea" aria-expanded="false" aria-controls="collapseTextarea">
         add a comment
     </button>*@
+    <a href="@Url.Action("PostComments", new { id = Model.Id })" class="btn btn-secondary col-md-8 offset-md-2">See Comments</a>
+    <br />
+    <br />
     @if (userId != null)
     {
         <a href="@Url.Action("CreateComment", new { currentPost = Model.Id})" class="btn btn-primary col-md-8 offset-md-2">Add a comment</a>
     }
-    <br />
-    <br />
-    <a href="@Url.Action("PostComments", new { id = Model.Id })" class="btn btn-secondary col-md-8 offset-md-2">See Comments</a>
 </div>
 <br />
 
 <!-- display Comments this way, creating over separate view maybe -->
 
-@{
+@*@{
     foreach(var item in Model.Comments)
     {
         <p>@Html.DisplayFor(modelItem => item.Text)</p>
     }
-}
+}*@
 
 <!-- using Partial Views here...? (because multiple models are necessary) -->
 
