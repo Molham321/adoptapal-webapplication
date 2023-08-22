@@ -123,6 +123,8 @@ namespace Adoptapal.Web.Controllers
                 return NotFound();
             }
 
+            userId = HttpContext.Session.GetString("UserId");
+
             // currentPostId = HttpContext.Session.GetString("currentPostId");
 
             return View();
