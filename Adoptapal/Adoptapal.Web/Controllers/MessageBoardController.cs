@@ -15,6 +15,7 @@ namespace Adoptapal.Web.Controllers
         // private readonly IFileUploadService _uploadService;
 
         private static string? userId;
+        private static Guid currentPostId;
         // public static string? FilePath;
 
 
@@ -107,37 +108,49 @@ namespace Adoptapal.Web.Controllers
                 return NotFound();
             }
 
+            // HttpContext.Session.SetString("currentPostId", post.Id.ToString());
+
+            currentPostId = post.Id;
+
             return View(post);
+        }
+
+        //GET: Comment/Create/Id
+        public async Task<IActionResult> CreateComment(Guid? currentPost)
+        {
+            if (currentPost == null)
+            {
+                return NotFound();
+            }
+
+            // currentPostId = HttpContext.Session.GetString("currentPostId");
+
+            return View();
         }
 
         // POST: Comment/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateComment(Comment comment, Guid postId)
+        public async Task<IActionResult> CreateCommentConfirmed(Comment comment)
         {
             if (ModelState.IsValid)
             {
-                if (userId != null)
-                {
-                    comment.Post = await _manager.GetPostByIdAsync(postId);
+                    comment.Post = await _manager.GetPostByIdAsync(currentPostId);
                     comment.User = await _userManager.GetUserByIdAsync(userId);
                     comment.PostTime = DateTime.Now;
-                    // Console.Write(post);
+                    Console.Write(comment);
                     await _commentManager.CreateCommentAsync(comment);
                     return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    // return RedirectToAction("Login", "Account");
-                }
             }
 
             return View(comment);
         }
 
         // GET: Comments
-        public async Task<IActionResult> PostComments(MessageBoard post)
+        public async Task<IActionResult> PostComments(Guid? id)
         {
+            var post = await _manager.GetPostByIdAsync(id.Value);
+
             var commentsByPost = await _commentManager.GetAllPostCommentsByPostAsync(post);
 
             return commentsByPost != null ?

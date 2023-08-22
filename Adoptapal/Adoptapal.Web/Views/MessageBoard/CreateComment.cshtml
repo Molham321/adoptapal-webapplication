@@ -1,0 +1,25 @@
+﻿@model Adoptapal.Business.Definitions.Comment
+
+@{
+    ViewData["Title"] = "CreateComment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userId = Context.Session.GetString("UserId");
+    // var currentPostId = Context.Session.GetString("currentPostId");
+}
+
+<h1>New Comment</h1>
+
+<div class="col-md-8 offset-md-2">
+    <form asp-action="CreateCommentConfirmed" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <textarea asp-for="Text" class="form-control"></textarea>
+            <span asp-validation-for="Text" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2">
+            <div class="btn-group" role="group" aria-label="Button Group">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </form>
+</div>
