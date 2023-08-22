@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 using System.Net;
 using System.Text;
+using Adoptapal.Web.Models;
 
 namespace Adoptapal.Web.Controllers
 {
@@ -65,7 +66,12 @@ namespace Adoptapal.Web.Controllers
                 if (existingUser != null)
                 {
                     ModelState.AddModelError("", "Die eingegebene E-Mail-Adresse ist bereits vergeben.");
-                    return View(model);
+                    var registerViewModel = new RegisterViewModel
+                    {
+                        Name = model.Name,
+                        Email = model.Email,
+                    };
+                    return View("Register", registerViewModel);
                 }
 
                 model.Password = UserManager.HashPassword(model.Password);
