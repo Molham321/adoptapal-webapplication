@@ -9,15 +9,40 @@ namespace Adoptapal.Web.Controllers
     public class HomeController : Controller
     {
         private readonly AnimalManager _manager;
+        private readonly UserManager _userManager;
 
-        public HomeController(AnimalManager manager) : base()
+        public static string? UserId;
+
+        public HomeController(AnimalManager manager, UserManager userManager) : base()
         {
             _manager = manager;
+            _userManager = userManager;
+        }
+
+        public async Task<IActionResult> AddToFavorite(Guid animalId)
+        {
+            var animal = await _manager.GetAnimalByIdAsync(animalId);
+            if (animal == null)
+            {
+                return NotFound();
+            }
+
+            var currentUser = await _userManager.GetUserByIdAsync(UserId);
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login", "Register");
+            }
+
+            await _userManager.AddFavoriteAnimalAsync(currentUser, animal);
+
+            return RedirectToAction("Index");
         }
 
         // GET: Animals
         public async Task<IActionResult> Index(string AnimalCategory, bool? IsMale, DateTime? Birthday)
         {
+            UserId = HttpContext.Session.GetString("UserId");
+
             var allAnimals = await _manager.GetAllAnimalsAsync();
 
             ViewData["IsMaleValue"] = IsMale;

@@ -46,7 +46,11 @@ namespace Adoptapal.Web.Controllers
 
             // Bei fehlerhaften Anmeldeinformationen wird das Anmeldeformular erneut angezeigt
             ModelState.AddModelError("", "Die eingegebenen Anmeldeinformationen sind ungültig.");
-            return View(model);
+            var loginViewModel = new LoginViewModel
+            {
+                Email = model.Email
+            };
+            return View("Login", loginViewModel);
         }
 
         // GET: /Account/ForgotPassword
