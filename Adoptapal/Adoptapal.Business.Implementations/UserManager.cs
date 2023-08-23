@@ -93,24 +93,24 @@ namespace Adoptapal.Business.Implementations
             return _container.Users.Any(e => e.Id == id);
         }
 
-        public async Task AddFavoriteAnimalAsync(User user, Animal animal)
-        {
-            if (user.FavoriteAnimals == null)
-            {
-                user.FavoriteAnimals = new List<Animal?>();
-            }
+        //public async Task AddFavoriteAnimalAsync(User user, Animal animal)
+        //{
+        //    if (user.FavoriteAnimals == null)
+        //    {
+        //        user.FavoriteAnimals = new List<Animal?>();
+        //    }
 
-            user.FavoriteAnimals.Add(animal);
-            await _container.SaveChangesAsync();
-        }
+        //    user.FavoriteAnimals.Add(animal);
+        //    await _container.SaveChangesAsync();
+        //}
 
-        public async Task RemoveFavoriteAnimalAsync(User user, Animal animal)
-        {
-            if (user.FavoriteAnimals != null)
-            {
-                user.FavoriteAnimals.Remove(animal);
-                await _container.SaveChangesAsync();
-            }
-        }
+        //public async Task RemoveFavoriteAnimalAsync(User user, Animal animal)
+        //{
+        //    if (user.FavoriteAnimals != null)
+        //    {
+        //        user.FavoriteAnimals.Remove(animal);
+        //        await _container.SaveChangesAsync();
+        //    }
+        //}
     }
 }

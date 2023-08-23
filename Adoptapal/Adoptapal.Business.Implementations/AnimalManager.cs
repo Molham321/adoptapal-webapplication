@@ -44,6 +44,17 @@ namespace Adoptapal.Business.Implementations
 
         public async Task DeleteAnimalAsync(Guid id)
         {
+
+            // Zuerst das Tier aus den Favoriten entfernen
+            var favoritAnimalsToDelete = await _container.FavoritAnimals
+                .Where(f => f.Animal.Id == id)
+                .ToListAsync();
+
+            foreach (var favoritAnimal in favoritAnimalsToDelete)
+            {
+                _container.FavoritAnimals.Remove(favoritAnimal);
+            }
+
             var animal = await _container.Animals.FindAsync(id);
             if (animal != null)
             {

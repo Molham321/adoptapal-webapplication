@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    var userId = Context.Session.GetString("UserId");
 }
 
 <link rel="stylesheet" href="~/css/accountForms.css" asp-append-version="true" />
@@ -66,13 +67,20 @@
 
                     <div class="text-center mt-3">
                         <a asp-action="Details" asp-controller="Animals" asp-route-id="@item.Id" class="btn btn-secondary">Details</a>
-@*                        <a asp-action="AddToFavorite" asp-controller="Home" asp-route-animalId="@item.Id" class="btn btn-link favorite-icon">
-                            <i class="far fa-heart"></i>
-                        </a>*@
+                        @{
+                            if (userId != null)
+                            {
+                                <a id="favorite-btn-@item.Id"
+                                   asp-action="AddToFavorite"
+                                   asp-controller="Home"
+                                   asp-route-animalId="@item.Id"
+                                   class="btn btn-link favorite-icon"
+                                   onclick="toggleFavorite(@item.Id)">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            }
+                        }
 
-                        <a src="#" class="btn btn-link favorite-icon">
-                            <i class="far fa-heart"></i>
-                        </a>
                     </div>
                 </div>
 
@@ -87,24 +95,24 @@
 
 <div id="map" style="width:100%;height:400px"></div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const favoriteIcons = document.querySelectorAll(".favorite-icon");
+@section Scripts {
+    <script>
+        function toggleFavorite(animalId) {
+            alert("HI!");
+            var btn = document.getElementById('favorite-btn-' + animalId);
+            var icon = btn.querySelector('i');
 
-        favoriteIcons.forEach(icon => {
-            icon.addEventListener("click", function () {
-                const animalId = icon.getAttribute("data-animal-id");
-                addToFavorites(animalId);
-            });
-        });
-
-        function addToFavorites(animalId) {
-            // Hier kannst du den Code hinzufügen, um das Tier mit der angegebenen animalId zu den Favoriten des Benutzers hinzuzufügen.
-            // Du könntest eine AJAX-Anfrage verwenden, um die Serverseite aufzurufen und die entsprechenden Änderungen vorzunehmen.
-            // Zum Beispiel könntest du die Methode "AddFavoriteAnimalAsync" aus deiner UserManager-Klasse aufrufen.
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+            }
         }
-    });
-</script>
+    </script>
+}
+
 
 <script>
     var map = L.map('map').fitWorld();

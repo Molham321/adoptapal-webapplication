@@ -23,11 +23,15 @@ namespace Adoptapal.Business.Definitions
 
             // comment --------------
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
+
+            // comment --------------
+            modelBuilder.ApplyConfiguration(new FavoritAnimalsConfiguration());
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<Animal> Animals { get; set; }
         public DbSet<MessageBoard> MessageBoards { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<FavoritAnimals> FavoritAnimals { get; set; }
     }
 }
