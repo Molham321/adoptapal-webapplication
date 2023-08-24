@@ -4,6 +4,7 @@ using Adoptapal.Business.Definitions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Adoptapal.Business.Definitions.Migrations
 {
     [DbContext(typeof(AdoptapalDbContext))]
-    partial class AdoptapalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230823080730_FavoritAnimals")]
+    partial class FavoritAnimals
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,6 +102,9 @@ namespace Adoptapal.Business.Definitions.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("MessageBoardId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("PostId")
                         .HasColumnType("uniqueidentifier");
 
@@ -113,6 +119,8 @@ namespace Adoptapal.Business.Definitions.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MessageBoardId");
 
                     b.HasIndex("PostId");
 
@@ -204,24 +212,6 @@ namespace Adoptapal.Business.Definitions.Migrations
                     b.HasIndex("AddressId");
 
                     b.ToTable("Nutzer", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("bad10466-f1a7-4651-9191-812036f7d967"),
-                            Email = "john@example.com",
-                            Name = "John Doe",
-                            Password = "54DE7F606F2523CBA8EFAC173FAB42FB7F59D56CEFF974C8FDB7342CF2CFE345",
-                            PhoneNumber = "+1234567890"
-                        },
-                        new
-                        {
-                            Id = new Guid("fef6a179-7a7d-483c-9c27-b1657e736110"),
-                            Email = "jane@example.com",
-                            Name = "Jane Smith",
-                            Password = "54DE7F606F2523CBA8EFAC173FAB42FB7F59D56CEFF974C8FDB7342CF2CFE345",
-                            PhoneNumber = "+9876543210"
-                        });
                 });
 
             modelBuilder.Entity("Adoptapal.Business.Definitions.Animal", b =>
@@ -235,6 +225,10 @@ namespace Adoptapal.Business.Definitions.Migrations
 
             modelBuilder.Entity("Adoptapal.Business.Definitions.Comment", b =>
                 {
+                    b.HasOne("Adoptapal.Business.Definitions.MessageBoard", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("MessageBoardId");
+
                     b.HasOne("Adoptapal.Business.Definitions.MessageBoard", "Post")
                         .WithMany()
                         .HasForeignKey("PostId");
@@ -279,6 +273,11 @@ namespace Adoptapal.Business.Definitions.Migrations
                         .HasForeignKey("AddressId");
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Adoptapal.Business.Definitions.MessageBoard", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }
