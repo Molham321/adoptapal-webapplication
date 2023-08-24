@@ -6,7 +6,7 @@
     var userId = Context.Session.GetString("UserId");
 }
 
-<h1>Schwarzes Brett</h1>
+<h1>Message Board</h1>
 
 <hr />
 
@@ -24,12 +24,10 @@
     {
         <div class="col-md-6">
             <div class="card mb-4">
+                <h5 class="card-header">@Html.DisplayFor(modelItem => item.Title)</h5>
                 <div class="card-body" max-height="50px">
                     <div class="text-start">
-                        <h3 class="blockquote">@Html.DisplayFor(modelItem => item.Title)</h3>
-                    </div>
-                    <div class="text-start">
-                        <p class="blockquote-footer">posted by @Html.DisplayFor(modelItem => item.User.Name) (@Html.DisplayFor(modelItem => item.User.Email))</p>
+                        <small class="text-muted">posted by @Html.DisplayFor(modelItem => item.User.Name) (@Html.DisplayFor(modelItem => item.User.Email))</small>
                     </div>
                     <hr>
                     <div class="text-start">
@@ -42,6 +40,9 @@
                             <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger">Delete</a>
                         }
                     </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">upload time: @Html.DisplayFor(modelItem => item.PostTime)</small>
                 </div>
             </div>
         </div>
