@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Adoptapal.Business.Definitions.FavoritAnimals>
+
+@{
+    ViewData["Title"] = "Favorit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Favorit</h1>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="text-center">
+                        <img src="~/images/@item.Animal.ImageFilePath" alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2" style="width: 100%; height: 300px; z-index: 1">
+                    </div>
+
+                    <div class="text-center">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Animal.Name)</h5>
+                        <p class="card-text">Sex: @(item.Animal.IsMale.HasValue && item.Animal.IsMale.Value ? "Male" : "Female")</p>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <a asp-action="Details" asp-controller="Animals" asp-route-id="@item.Animal.Id" class="btn btn-secondary">Details</a>
+                        <a asp-action="DeleteFromFavorite" asp-controller="Home" asp-route-animalId="@item.Animal.Id" class="btn btn-link favorite-icon">
+                            <i class="fa fa-trash"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
