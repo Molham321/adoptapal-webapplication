@@ -4,6 +4,7 @@ using Adoptapal.Business.Definitions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Adoptapal.Business.Definitions.Migrations
 {
     [DbContext(typeof(AdoptapalDbContext))]
-    partial class AdoptapalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230821201116_initial update")]
+    partial class initialupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,6 +102,9 @@ namespace Adoptapal.Business.Definitions.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("MessageBoardId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("PostId")
                         .HasColumnType("uniqueidentifier");
 
@@ -113,6 +119,8 @@ namespace Adoptapal.Business.Definitions.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MessageBoardId");
 
                     b.HasIndex("PostId");
 
@@ -196,6 +204,10 @@ namespace Adoptapal.Business.Definitions.Migrations
 
             modelBuilder.Entity("Adoptapal.Business.Definitions.Comment", b =>
                 {
+                    b.HasOne("Adoptapal.Business.Definitions.MessageBoard", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("MessageBoardId");
+
                     b.HasOne("Adoptapal.Business.Definitions.MessageBoard", "Post")
                         .WithMany()
                         .HasForeignKey("PostId");
@@ -225,6 +237,11 @@ namespace Adoptapal.Business.Definitions.Migrations
                         .HasForeignKey("AddressId");
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Adoptapal.Business.Definitions.MessageBoard", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }
