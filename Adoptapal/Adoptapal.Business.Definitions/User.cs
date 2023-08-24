@@ -33,8 +33,5 @@ namespace Adoptapal.Business.Definitions
 
         [Display(Name = "Address")]
         public Address? Address { get; set; }
-
-        //// Navigationseigenschaft für die Favoriten des Benutzers
-        //public List<FavoritAnimals> FavoriteAnimals { get; set; } = new List<FavoritAnimals>();
     }
 }
