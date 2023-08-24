@@ -135,14 +135,8 @@ namespace Adoptapal.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var currentUser = await _userManager.GetUserByIdAsync(userId);
-                if (currentUser == null)
-                {
-                    return RedirectToAction("Login", "Register");
-                }
-
                 comment.Post = await _manager.GetPostByIdAsync(currentPostId);
-                comment.User = currentUser;
+                comment.User = await _userManager.GetUserByIdAsync(userId);
                 comment.PostTime = DateTime.Now;
                 await _commentManager.CreateCommentAsync(comment);
                 return RedirectToAction("Details", new { id = currentPostId });
