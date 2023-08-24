@@ -125,8 +125,6 @@ namespace Adoptapal.Web.Controllers
 
             userId = HttpContext.Session.GetString("UserId");
 
-            // currentPostId = HttpContext.Session.GetString("currentPostId");
-
             return View();
         }
 
@@ -137,12 +135,17 @@ namespace Adoptapal.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                    comment.Post = await _manager.GetPostByIdAsync(currentPostId);
-                    comment.User = await _userManager.GetUserByIdAsync(userId);
-                    comment.PostTime = DateTime.Now;
-                    Console.Write(comment);
-                    await _commentManager.CreateCommentAsync(comment);
-                    return RedirectToAction(nameof(Index));
+                var currentUser = await _userManager.GetUserByIdAsync(userId);
+                if (currentUser == null)
+                {
+                    return RedirectToAction("Login", "Register");
+                }
+
+                comment.Post = await _manager.GetPostByIdAsync(currentPostId);
+                comment.User = currentUser;
+                comment.PostTime = DateTime.Now;
+                await _commentManager.CreateCommentAsync(comment);
+                return RedirectToAction("Details", new { id = currentPostId });
             }
 
             return View(comment);
