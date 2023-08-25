@@ -1,4 +1,14 @@
-﻿using Adoptapal.Business.Definitions;
+﻿/*
+ * File: AccountController.cs
+ * Namespace: Adoptapal.Web.Controllers
+ * 
+ * Description:
+ * This file contains the implementation of the AccountController class, which handles
+ * user account-related actions such as login, registration, password reset, and user settings.
+ * 
+ */
+
+using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;

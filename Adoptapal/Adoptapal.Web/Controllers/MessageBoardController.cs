@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿/*
+ * File: MessageBoardController.cs
+ * Namespace: Adoptapal.Web.Controllers
+ * 
+ * Description:
+ * This file contains the implementation of the MessageBoardController class, which handles
+ * various actions related to message board posts and comments.
+ * 
+ */
+
+using Microsoft.AspNetCore.Mvc;
 using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
-using Microsoft.Extensions.Hosting;
-using Adoptapal.Web.Models;
 
 namespace Adoptapal.Web.Controllers
 {

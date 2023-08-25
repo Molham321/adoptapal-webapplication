@@ -1,8 +1,17 @@
-﻿using Adoptapal.Business.Definitions;
+﻿/*
+ * File: HomeController.cs
+ * Namespace: Adoptapal.Web.Controllers
+ * 
+ * Description:
+ * This file contains the implementation of the HomeController class, which handles
+ * various actions related to the home page and user interactions.
+ * 
+ */
+
+using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
 using Adoptapal.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 
 namespace Adoptapal.Web.Controllers

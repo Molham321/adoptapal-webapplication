@@ -1,8 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿/*
+ * File: CommentController.cs
+ * Namespace: Adoptapal.Web.Controllers
+ * 
+ * Description:
+ * This file contains the implementation of the CommentController class, which handles
+ * actions related to comments on message board posts.
+ * 
+ */
+
+using Microsoft.AspNetCore.Mvc;
 using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
-using Microsoft.Extensions.Hosting;
 
 namespace Adoptapal.Web.Controllers
 {
