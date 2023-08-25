@@ -52,7 +52,7 @@ namespace Adoptapal.Business.Definitions.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MessageBoards",
+                name: "Post",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -63,9 +63,9 @@ namespace Adoptapal.Business.Definitions.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MessageBoards", x => x.Id);
+                    table.PrimaryKey("PK_Post", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MessageBoards_Nutzer_UserId",
+                        name: "FK_Post_Nutzer_UserId",
                         column: x => x.UserId,
                         principalTable: "Nutzer",
                         principalColumn: "Id");
@@ -104,33 +104,45 @@ namespace Adoptapal.Business.Definitions.Migrations
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PostTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    MessageBoardId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Kommentare", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Kommentare_MessageBoards_MessageBoardId",
-                        column: x => x.MessageBoardId,
-                        principalTable: "MessageBoards",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Kommentare_MessageBoards_PostId",
-                        column: x => x.PostId,
-                        principalTable: "MessageBoards",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Kommentare_Nutzer_UserId",
                         column: x => x.UserId,
                         principalTable: "Nutzer",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Kommentare_Post_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Post",
+                        principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Kommentare_MessageBoardId",
-                table: "Kommentare",
-                column: "MessageBoardId");
+            migrationBuilder.CreateTable(
+                name: "Lieblingstiere",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    AnimalId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lieblingstiere", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Lieblingstiere_Nutzer_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Nutzer",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Lieblingstiere_Tiere_AnimalId",
+                        column: x => x.AnimalId,
+                        principalTable: "Tiere",
+                        principalColumn: "Id");
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Kommentare_PostId",
@@ -143,14 +155,24 @@ namespace Adoptapal.Business.Definitions.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MessageBoards_UserId",
-                table: "MessageBoards",
+                name: "IX_Lieblingstiere_AnimalId",
+                table: "Lieblingstiere",
+                column: "AnimalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lieblingstiere_UserId",
+                table: "Lieblingstiere",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Nutzer_AddressId",
                 table: "Nutzer",
                 column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Post_UserId",
+                table: "Post",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tiere_UserId",
@@ -165,10 +187,13 @@ namespace Adoptapal.Business.Definitions.Migrations
                 name: "Kommentare");
 
             migrationBuilder.DropTable(
-                name: "Tiere");
+                name: "Lieblingstiere");
 
             migrationBuilder.DropTable(
-                name: "MessageBoards");
+                name: "Post");
+
+            migrationBuilder.DropTable(
+                name: "Tiere");
 
             migrationBuilder.DropTable(
                 name: "Nutzer");

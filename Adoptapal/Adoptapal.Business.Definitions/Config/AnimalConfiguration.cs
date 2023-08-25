@@ -6,8 +6,6 @@
  * This file contains the Entity Framework Core configuration for the "Animal" entity,
  * defining how the entity's properties and relationships are mapped to the database.
  * 
- * Author: [Your Name]
- * Date: [Date]
  */
 
 using Microsoft.EntityFrameworkCore;

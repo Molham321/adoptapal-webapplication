@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Adoptapal.Business.Definitions.Migrations
 {
     [DbContext(typeof(AdoptapalDbContext))]
-    [Migration("20230820103526_initial")]
+    [Migration("20230825114720_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -102,9 +102,6 @@ namespace Adoptapal.Business.Definitions.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("MessageBoardId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("PostId")
                         .HasColumnType("uniqueidentifier");
 
@@ -120,13 +117,32 @@ namespace Adoptapal.Business.Definitions.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MessageBoardId");
-
                     b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Kommentare", (string)null);
+                });
+
+            modelBuilder.Entity("Adoptapal.Business.Definitions.FavoritAnimals", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AnimalId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnimalId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Lieblingstiere", (string)null);
                 });
 
             modelBuilder.Entity("Adoptapal.Business.Definitions.MessageBoard", b =>
@@ -153,7 +169,7 @@ namespace Adoptapal.Business.Definitions.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MessageBoards");
+                    b.ToTable("Post", (string)null);
                 });
 
             modelBuilder.Entity("Adoptapal.Business.Definitions.User", b =>
@@ -204,10 +220,6 @@ namespace Adoptapal.Business.Definitions.Migrations
 
             modelBuilder.Entity("Adoptapal.Business.Definitions.Comment", b =>
                 {
-                    b.HasOne("Adoptapal.Business.Definitions.MessageBoard", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("MessageBoardId");
-
                     b.HasOne("Adoptapal.Business.Definitions.MessageBoard", "Post")
                         .WithMany()
                         .HasForeignKey("PostId");
@@ -217,6 +229,21 @@ namespace Adoptapal.Business.Definitions.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Adoptapal.Business.Definitions.FavoritAnimals", b =>
+                {
+                    b.HasOne("Adoptapal.Business.Definitions.Animal", "Animal")
+                        .WithMany()
+                        .HasForeignKey("AnimalId");
+
+                    b.HasOne("Adoptapal.Business.Definitions.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Animal");
 
                     b.Navigation("User");
                 });
@@ -237,11 +264,6 @@ namespace Adoptapal.Business.Definitions.Migrations
                         .HasForeignKey("AddressId");
 
                     b.Navigation("Address");
-                });
-
-            modelBuilder.Entity("Adoptapal.Business.Definitions.MessageBoard", b =>
-                {
-                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }
