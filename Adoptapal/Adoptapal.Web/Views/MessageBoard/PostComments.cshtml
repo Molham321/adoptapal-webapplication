@@ -6,23 +6,24 @@
     var userId = Context.Session.GetString("UserId");
 }
 
+<link rel="stylesheet" href="~/css/accountForms.css" asp-append-version="true" />
+
 <h1>Comments</h1>
 
+<hr />
+
 <div class="row justify-content-center">
+    <div class="col-6">
     @foreach (var item in Model)
     {
-        <div class="col-md-6">
             <div class="card mb-4">
+                <h5 class="card-header">@Html.DisplayFor(modelItem => item.User.Name) says:</h5>
                 <div class="card-body" max-height="50px">
-                    <div class="text-start">
-                        <p class="card-title">comment by @Html.DisplayFor(modelItem => item.User.Name) (@Html.DisplayFor(modelItem => item.User.Email))</p>
-                    </div>
-                    <hr>
                     <div class="text-start">
                         <p class="card-title">@Html.DisplayFor(modelItem => item.Text)</p>
                     </div>
                 </div>
             </div>
-        </div>
     }
+    </div>
 </div>

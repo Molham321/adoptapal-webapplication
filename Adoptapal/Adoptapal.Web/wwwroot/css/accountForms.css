@@ -6,6 +6,10 @@
     --LightModeText: #001C30;
     --BackgroundGreyOpacity: rgba(38, 62, 70, 0.4);
     --BackgroundWhite: #EEEEEE;
+    --ButtonGrey: #393E46;
+    --ButtonGreyDark: #222831;
+    --DangerRed: #E64848;
+    --DangerRedDark: #C21010;
 }
 
 /* Dein bestehendes Styling hier beibehalten und die Farben verwenden */
@@ -22,8 +26,12 @@ h1, h2, h3 {
 }
 
 .card {
-    padding: 20px;
+/*    padding: 20px;*/
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    padding: 20px;
 }
 
 /* Beispiel für Hover-Effekte */
@@ -35,6 +43,28 @@ h1, h2, h3 {
 
 .btn:hover {
     background-color: var(--LightModeSecondary);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--ButtonGrey);
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: var(--ButtonGreyDark);
+    color: white;
+}
+
+.btn-danger {
+    background-color: var(--DangerRed);
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: var(--DangerRedDark);
     color: white;
 }
 
