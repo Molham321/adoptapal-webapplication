@@ -17,10 +17,10 @@ namespace Adoptapal.Test
     [TestClass]
     public class UserManagerTest
     {
-        private UserManager _userManager;
-        private static AdoptapalDbContext _dbContext;
+        private UserManager? _userManager;
+        private static AdoptapalDbContext? _dbContext;
 
-        private User user;
+        private User? user;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)

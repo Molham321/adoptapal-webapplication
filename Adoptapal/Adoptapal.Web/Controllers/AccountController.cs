@@ -254,16 +254,20 @@ namespace Adoptapal.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteUser()
         {
-            User user = await _manager.GetUserByIdAsync(userId);
-
-            if(user != null)
+            if(userId != null)
             {
-                await _manager.DeleteUserAsync(user.Id);
+                User user = await _manager.GetUserByIdAsync(userId);
 
-                return RedirectToAction("Signout");
+                if (user != null)
+                {
+                    await _manager.DeleteUserAsync(user.Id);
+
+                    return RedirectToAction("Signout");
+                }
+
             }
-            return RedirectToAction("Login");
 
+            return RedirectToAction("Login");
         }
     }
 }

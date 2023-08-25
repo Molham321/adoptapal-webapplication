@@ -39,29 +39,33 @@ namespace Adoptapal.Web.Controllers
                 return NotFound();
             }
 
-            var currentUser = await _userManager.GetUserByIdAsync(UserId);
-            if (currentUser == null)
+            if(UserId != null)
             {
-                return RedirectToAction("Login", "Register");
+                var currentUser = await _userManager.GetUserByIdAsync(UserId);
+
+                if (currentUser == null)
+                {
+                    return RedirectToAction("Login", "Register");
+                }
+
+                // Tier zu den Favoriten des Benutzers hinzufügen
+                var favoritAnimal = new FavoritAnimals
+                {
+                    User = currentUser,
+                    Animal = animal
+                };
+
+                // Überprüfen, ob das Tier bereits in den Favoriten des Benutzers ist
+                var isExistingFavorite = await _favoritAnimalsManager.CheckIfFavoritAsync(favoritAnimal);
+
+                if (isExistingFavorite)
+                {
+                    // Das Tier ist bereits ein Favorit, hier kannst du eine entsprechende Meldung anzeigen oder einfach umleiten
+                    return RedirectToAction("Index");
+                }
+
+                await _favoritAnimalsManager.CreateFavoritAnimalAsync(favoritAnimal);
             }
-
-            // Tier zu den Favoriten des Benutzers hinzufügen
-            var favoritAnimal = new FavoritAnimals
-            {
-                User = currentUser,
-                Animal = animal
-            };
-
-            // Überprüfen, ob das Tier bereits in den Favoriten des Benutzers ist
-            var isExistingFavorite = await _favoritAnimalsManager.CheckIfFavoritAsync(favoritAnimal);
-
-            if (isExistingFavorite)
-            {
-                // Das Tier ist bereits ein Favorit, hier kannst du eine entsprechende Meldung anzeigen oder einfach umleiten
-                return RedirectToAction("Index");
-            }
-
-            await _favoritAnimalsManager.CreateFavoritAnimalAsync(favoritAnimal);
 
             return RedirectToAction("Index");
         }

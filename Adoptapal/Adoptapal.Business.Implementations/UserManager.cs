@@ -142,6 +142,17 @@ namespace Adoptapal.Business.Implementations
         /// <param name="id">The unique identifier of the user to delete.</param>
         public async Task DeleteUserAsync(Guid id)
         {
+
+            // Remove the animal from user first
+            var userAnimalsToDelete = await _container.Animals
+                .Where(f => f.User.Id == id)
+                .ToListAsync();
+
+            foreach (var userAnimals in userAnimalsToDelete)
+            {
+                _container.Animals.Remove(userAnimals);
+            }
+
             var user = await _container.Users.FindAsync(id);
             if (user != null)
             {

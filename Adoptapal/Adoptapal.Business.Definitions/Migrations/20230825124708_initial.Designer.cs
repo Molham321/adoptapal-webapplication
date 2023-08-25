@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Adoptapal.Business.Definitions.Migrations
 {
     [DbContext(typeof(AdoptapalDbContext))]
-    [Migration("20230825114720_initial")]
+    [Migration("20230825124708_initial")]
     partial class initial
     {
         /// <inheritdoc />
