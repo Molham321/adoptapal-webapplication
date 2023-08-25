@@ -1,4 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*
+ * File: AnimalsController.cs
+ * Namespace: Adoptapal.Web.Controllers
+ * 
+ * Description:
+ * This file contains the implementation of the AnimalsController class, which handles
+ * CRUD operations related to animals, including creation, editing, and deletion.
+ * 
+ */
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;

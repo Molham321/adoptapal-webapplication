@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿/*
+ * File: MessageBoardController.cs
+ * Namespace: Adoptapal.Web.Controllers
+ * 
+ * Description:
+ * This file contains the implementation of the MessageBoardController class, which handles
+ * various actions related to message board posts and comments.
+ * 
+ */
+
+using Microsoft.AspNetCore.Mvc;
 using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
-using Microsoft.Extensions.Hosting;
-using Adoptapal.Web.Models;
 
 namespace Adoptapal.Web.Controllers
 {
@@ -125,8 +132,6 @@ namespace Adoptapal.Web.Controllers
 
             userId = HttpContext.Session.GetString("UserId");
 
-            // currentPostId = HttpContext.Session.GetString("currentPostId");
-
             return View();
         }
 
@@ -137,12 +142,11 @@ namespace Adoptapal.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                    comment.Post = await _manager.GetPostByIdAsync(currentPostId);
-                    comment.User = await _userManager.GetUserByIdAsync(userId);
-                    comment.PostTime = DateTime.Now;
-                    Console.Write(comment);
-                    await _commentManager.CreateCommentAsync(comment);
-                    return RedirectToAction(nameof(Index));
+                comment.Post = await _manager.GetPostByIdAsync(currentPostId);
+                comment.User = await _userManager.GetUserByIdAsync(userId);
+                comment.PostTime = DateTime.Now;
+                await _commentManager.CreateCommentAsync(comment);
+                return RedirectToAction("Details", new { id = currentPostId });
             }
 
             return View(comment);

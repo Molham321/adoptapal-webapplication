@@ -1,4 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/*
+ * File: LoginViewModel.cs
+ * Namespace: Adoptapal.Web.Models
+ * 
+ * Description:
+ * This file contains the implementation of the LoginViewModel class, which is used
+ * to capture user input when logging in. It includes validation attributes to ensure
+ * the provided data is valid.
+ * 
+ */
+
+using System.ComponentModel.DataAnnotations;
 
 namespace Adoptapal.Web.Models
 {

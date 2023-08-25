@@ -1,8 +1,17 @@
-﻿using Adoptapal.Business.Definitions;
+﻿/*
+ * File: ProfileController.cs
+ * Namespace: Adoptapal.Web.Controllers
+ * 
+ * Description:
+ * This file contains the implementation of the ProfileController class, which handles
+ * user profile-related actions and displays user information along with their animals.
+ * 
+ */
+
+using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
 using Adoptapal.Web.FileUploadService;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 
 namespace Adoptapal.Web.Controllers
 { 

@@ -166,7 +166,7 @@ namespace Adoptapal.Business.Definitions.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MessageBoards");
+                    b.ToTable("Post", (string)null);
                 });
 
             modelBuilder.Entity("Adoptapal.Business.Definitions.User", b =>
@@ -204,24 +204,6 @@ namespace Adoptapal.Business.Definitions.Migrations
                     b.HasIndex("AddressId");
 
                     b.ToTable("Nutzer", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("bad10466-f1a7-4651-9191-812036f7d967"),
-                            Email = "john@example.com",
-                            Name = "John Doe",
-                            Password = "54DE7F606F2523CBA8EFAC173FAB42FB7F59D56CEFF974C8FDB7342CF2CFE345",
-                            PhoneNumber = "+1234567890"
-                        },
-                        new
-                        {
-                            Id = new Guid("fef6a179-7a7d-483c-9c27-b1657e736110"),
-                            Email = "jane@example.com",
-                            Name = "Jane Smith",
-                            Password = "54DE7F606F2523CBA8EFAC173FAB42FB7F59D56CEFF974C8FDB7342CF2CFE345",
-                            PhoneNumber = "+9876543210"
-                        });
                 });
 
             modelBuilder.Entity("Adoptapal.Business.Definitions.Animal", b =>
