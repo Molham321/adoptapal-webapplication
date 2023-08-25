@@ -1,4 +1,14 @@
-﻿using Adoptapal.Business.Definitions;
+﻿/*
+ * File: UserManagerTest.cs
+ * Namespace: Adoptapal.Test
+ * 
+ * Description:
+ * This file contains the unit tests for the UserManager class, which tests the various
+ * methods of the UserManager related to user operations.
+ * 
+ */
+
+using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
 using Microsoft.EntityFrameworkCore;
 
