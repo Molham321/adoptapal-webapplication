@@ -1,4 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/*
+ * File: RegisterViewModel.cs
+ * Namespace: Adoptapal.Web.Models
+ * 
+ * Description:
+ * This file contains the implementation of the RegisterViewModel class, which is used
+ * for user registration.
+ * 
+ */
+
+using System.ComponentModel.DataAnnotations;
 
 namespace Adoptapal.Web.Models
 {
