@@ -6,9 +6,12 @@
     var userId = Context.Session.GetString("UserId");
 }
 
+<link rel="stylesheet" href="~/css/accountForms.css" asp-append-version="true" />
+
 <h1>New Post</h1>
 
 <hr />
+
 <div class="row">
     <div class="col-md-6">
         <form asp-action="Create" enctype="multipart/form-data">
