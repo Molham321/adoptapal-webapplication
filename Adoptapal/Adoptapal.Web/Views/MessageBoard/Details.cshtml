@@ -25,6 +25,7 @@
         <div class="card-body" max-height="50px">
             <div class="text-start">
                 <small class="text-muted">posted by @Html.DisplayFor(model => model.User.Name) (@Html.DisplayFor(model => model.User.Email))</small>
+                <a asp-action="UserProfile" asp-controller="Profile" asp-route-id="@Model.Id" class="btn btn-primary">visit profile</a>
             </div>
             <hr>
             <div class="text-start">

@@ -37,7 +37,7 @@ namespace Adoptapal.Business.Implementations
         /// <returns>A list of comments.</returns>
         public async Task<List<Comment>> GetAllCommentsAsync()
         {
-            return await _container.Comments.Include(it => it.Post).ThenInclude(it => it.User).ToListAsync();
+            return await _container.Comments.Include(it => it.Post).Include(it => it.User).ToListAsync();
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Adoptapal.Business.Implementations
         /// <returns>The comment entity.</returns>
         public async Task<Comment> GetCommentByIdAsync(Guid id)
         {
-            return await _container.Comments.Include(it => it.Post).ThenInclude(it => it.User).FirstOrDefaultAsync(m => m.Id == id);
+            return await _container.Comments.Include(it => it.Post).Include(it => it.User).FirstOrDefaultAsync(m => m.Id == id);
         }
 
         /// <summary>

@@ -140,6 +140,8 @@ namespace Adoptapal.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateCommentConfirmed(Comment comment)
         {
+            userId = HttpContext.Session.GetString("UserId");
+
             if (ModelState.IsValid)
             {
                 comment.Post = await _manager.GetPostByIdAsync(currentPostId);
@@ -155,6 +157,8 @@ namespace Adoptapal.Web.Controllers
         // GET: Comments
         public async Task<IActionResult> PostComments(Guid? id)
         {
+            userId = HttpContext.Session.GetString("UserId");
+
             var post = await _manager.GetPostByIdAsync(id.Value);
 
             var commentsByPost = await _commentManager.GetAllPostCommentsByPostAsync(post);
@@ -162,6 +166,13 @@ namespace Adoptapal.Web.Controllers
             return commentsByPost != null ?
                                    View(commentsByPost) :
                                    Problem("Entity set 'AdoptapalDbContext.Comments' is null.");
+        }
+
+        // DELETE: Comment/Id
+        public async Task<IActionResult> DeleteComment(Guid id)
+        {
+            await _commentManager.DeleteCommentAsync(id);
+            return RedirectToAction("PostComments", new { id = currentPostId });
         }
     }
 }
