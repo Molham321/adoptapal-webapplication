@@ -63,14 +63,15 @@ namespace Adoptapal.Web.Controllers
                 }
             } else
             {
+                // get user from an animal (clicked on animal in home screen) or...
                 var animal = await _animalManager.GetAnimalByIdAsync(id.Value);
                 if (animal == null)
                 {
+                    // ...get user from a post (clicked on post on message board screen)
                     var post = await _messageBoardManager.GetPostByIdAsync(id.Value);
 
                     if (post == null)
                     {
-                        Console.Write("kein Post gefunden, dammit :(");
                         return NotFound();
                     }
 
