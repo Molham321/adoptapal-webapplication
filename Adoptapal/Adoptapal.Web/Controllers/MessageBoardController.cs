@@ -128,7 +128,7 @@ namespace Adoptapal.Web.Controllers
         }
 
         //GET: Comment/Create/Id
-        public async Task<IActionResult> CreateComment(Guid? currentPost)
+        public IActionResult CreateComment(Guid? currentPost)
         {
             if (currentPost == null)
             {
@@ -160,11 +160,9 @@ namespace Adoptapal.Web.Controllers
         }
 
         // GET: Comments
-        public async Task<IActionResult> PostComments(Guid? id)
+        public async Task<IActionResult> PostComments(Guid id)
         {
-            userId = HttpContext.Session.GetString("UserId");
-
-            var post = await _manager.GetPostByIdAsync(id.Value);
+            var post = await _manager.GetPostByIdAsync(id);
 
             var commentsByPost = await _commentManager.GetAllPostCommentsByPostAsync(post);
 

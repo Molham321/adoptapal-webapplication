@@ -87,6 +87,16 @@ namespace Adoptapal.Business.Implementations
         /// <param name="id">The unique identifier of the post to delete.</param>
         public async Task DeletePostAsync(Guid id)
         {
+            // Remove the comments from Post first
+            var postCommentsToDelete = await _container.Comments
+                .Where(f => f.Post.Id == id)
+                .ToListAsync();
+
+            foreach (var postComments in postCommentsToDelete)
+            {
+                _container.Comments.Remove(postComments);
+            }
+
             var messageBoard = await _container.MessageBoards.FindAsync(id);
             if (messageBoard != null)
             {
