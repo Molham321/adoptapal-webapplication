@@ -114,10 +114,15 @@ namespace Adoptapal.Web.Controllers
             {
                 return NotFound();
             }
-
             // HttpContext.Session.SetString("currentPostId", post.Id.ToString());
 
             currentPostId = post.Id;
+
+            List<Comment> postComments = await _commentManager.GetAllPostCommentsByPostAsync(post);
+            int commentCount = postComments.Count;
+
+            ViewBag.Comments = postComments;
+            ViewBag.CommentCount = commentCount;
 
             return View(post);
         }
