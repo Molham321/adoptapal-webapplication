@@ -3,11 +3,19 @@
 @{
     ViewData["Title"] = "PostComments";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var userId = Context.Session.GetString("UserId");
 }
 
 <link rel="stylesheet" href="~/css/accountForms.css" asp-append-version="true" />
 
-<h1>Comments</h1>
+<div class="row">
+    <div class="col-sm-1">
+        <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></i></a>
+    </div>
+    <div class="col-sm-11">
+        <h1>Comments</h1>
+    </div>
+</div>
 
 <hr />
 
@@ -21,6 +29,10 @@
                     <div class="text-start">
                         <p class="card-title">@Html.DisplayFor(modelItem => item.Text)</p>
                     </div>
+@*                    @if (userId != null && userId == item.User.Id.ToString())
+                    {
+                        <a href="@Url.Action("DeleteComment", new { id = item.Id })" class="btn btn-danger">Delete</a>
+                    }*@
                 </div>
             </div>
     }

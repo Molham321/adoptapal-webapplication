@@ -12,6 +12,7 @@ using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
 using Adoptapal.Web.FileUploadService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
 namespace Adoptapal.Web.Controllers
 { 
@@ -19,14 +20,16 @@ namespace Adoptapal.Web.Controllers
     {
         private readonly UserManager _userManager;
         private readonly AnimalManager _animalManager;
+        private readonly MessageBoardManager _messageBoardManager;
         private readonly IFileUploadService _uploadService;
 
         public static string? UserId;
         public static string? FilePath;
-        public ProfileController(UserManager manager, AnimalManager animalManager, IFileUploadService uploadService) : base()
+        public ProfileController(UserManager manager, AnimalManager animalManager, MessageBoardManager messageBoardManager, IFileUploadService uploadService) : base()
         {
             _userManager = manager;
             _animalManager = animalManager;
+            _messageBoardManager = messageBoardManager;
             _uploadService = uploadService;
         }
         public IActionResult Index()
@@ -36,6 +39,9 @@ namespace Adoptapal.Web.Controllers
 
         public async Task<IActionResult> UserProfile(Guid? id)
         {
+            // hier dritten Fall, für Userprofil aufrufen aus Post (Schwarzes Brett)
+            // MessageBoard manager benötigt
+
             if (id == null)
             {
                 UserId = HttpContext.Session.GetString("UserId");
@@ -47,8 +53,12 @@ namespace Adoptapal.Web.Controllers
                     List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(model);
                     int animalCount = userAnimals.Count;
 
+                    // Get the user's posts
+                    List<MessageBoard> userPosts = await _messageBoardManager.GetAllUserPostsByUserAsync(model);
+
                     ViewBag.AnimalCount = animalCount; // Pass the animal count to the view
                     ViewBag.Animals = userAnimals; // Pass the animal count to the view
+                    ViewBag.MessageBoards = userPosts;
 
                     return View(model);
 
@@ -58,21 +68,42 @@ namespace Adoptapal.Web.Controllers
                 }
             } else
             {
+                // get user from an animal (clicked on animal in home screen) or...
                 var animal = await _animalManager.GetAnimalByIdAsync(id.Value);
                 if (animal == null)
                 {
-                    return NotFound();
+                    // ...get user from a post (clicked on post on message board screen)
+                    var post = await _messageBoardManager.GetPostByIdAsync(id.Value);
+
+                    if (post == null)
+                    {
+                        return NotFound();
+                    }
+
+                    List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(post.User);
+                    int animalCount = userAnimals.Count;
+                    List<MessageBoard> userPosts = await _messageBoardManager.GetAllUserPostsByUserAsync(post.User);
+
+                    ViewBag.AnimalCount = animalCount;
+                    ViewBag.Animals = userAnimals;
+                    ViewBag.MessageBoards = userPosts;
+
+                    return View(post.User);
                 }
+                else
+                {
+                    // Get the user's animals
+                    List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(animal.User);
+                    int animalCount = userAnimals.Count;
+                    List<MessageBoard> userPosts = await _messageBoardManager.GetAllUserPostsByUserAsync(animal.User);
 
-                // Get the user's animals
-                List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(animal.User);
-                int animalCount = userAnimals.Count;
-
-                ViewBag.AnimalCount = animalCount; // Pass the animal count to the view
-                ViewBag.Animals = userAnimals; // Pass the animal count to the view
+                    ViewBag.AnimalCount = animalCount; // Pass the animal count to the view
+                    ViewBag.Animals = userAnimals; // Pass the animal count to the view
+                    ViewBag.MessageBoards = userPosts;
 
 
-                return View(animal.User);
+                    return View(animal.User);
+                }
             }
         }
 
