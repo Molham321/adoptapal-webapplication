@@ -47,7 +47,7 @@ namespace Adoptapal.Business.Implementations
         /// <returns>A list of comments associated with the post.</returns>
         public async Task<List<Comment>> GetAllPostCommentsByPostAsync(MessageBoard post)
         {
-            return await _container.Comments.Where(m => m.Post == post).ToListAsync();
+            return await _container.Comments.Include(it => it.User).Where(m => m.Post == post).ToListAsync();
         }
 
         /// <summary>
