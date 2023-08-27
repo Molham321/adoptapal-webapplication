@@ -139,7 +139,7 @@ namespace Adoptapal.Web.Controllers
         {
             userId = HttpContext.Session.GetString("UserId");
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && userId != null)
             {
                 comment.Post = await _manager.GetPostByIdAsync(currentPostId);
                 comment.User = await _userManager.GetUserByIdAsync(userId);
