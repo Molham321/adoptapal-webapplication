@@ -39,7 +39,6 @@
 </div>
 <div>
     <button class="btn btn-secondary col-md-8 offset-md-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComments" aria-expanded="false" aria-controls="collapseTextarea" id="toggleButton">Show comments</button>
-@*    <a href="@Url.Action("PostComments", new { id = Model.Id })" class="btn btn-secondary col-md-8 offset-md-2">See Comments</a>*@
     <br />
     <br />
     @if (userId != null)
@@ -54,15 +53,15 @@
         @foreach (var comment in ViewBag.Comments)
         {
             <div class="card mb-4">
-                <h5 class="card-header">@comment.User.Name says:</h5>
+                <h5 class="card-header">@comment.User.Name <small class="text-muted">(@comment.User.Email)</small> says:</h5>
                 <div class="card-body" max-height="50px">
                     <div class="text-start">
                         <p class="card-title">@comment.Text</p>
                     </div>
-                    @*                    @if (userId != null && userId == item.User.Id.ToString())
+                @if (userId != null && userId == comment.User.Id.ToString())
                 {
-                <a href="@Url.Action("DeleteComment", new { id = item.Id })" class="btn btn-danger">Delete</a>
-                }*@
+                <a href="@Url.Action("DeleteComment", new { id = comment.Id })" class="btn btn-danger">Delete</a>
+                }
                 </div>
             </div>
         }

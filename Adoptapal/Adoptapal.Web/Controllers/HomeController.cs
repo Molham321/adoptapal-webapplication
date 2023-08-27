@@ -31,6 +31,7 @@ namespace Adoptapal.Web.Controllers
             _favoritAnimalsManager = favoritAnimalsManager;
         }
 
+        // POST: FavoriteAnimal
         public async Task<IActionResult> AddToFavorite(Guid animalId)
         {
             var animal = await _manager.GetAnimalByIdAsync(animalId);
