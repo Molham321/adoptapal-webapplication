@@ -18,7 +18,7 @@ namespace Adoptapal.Web.Models
         [Required(ErrorMessage = "Email is Required")]
         [EmailAddress(ErrorMessage = "please enter a valid email address")]
         [Display(Name = "Email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [Required(ErrorMessage = "Password is Required")]
         [DataType(DataType.Password)]

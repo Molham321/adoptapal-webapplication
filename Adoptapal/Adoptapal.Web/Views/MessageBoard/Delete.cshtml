@@ -18,7 +18,7 @@
         <h5 class="card-header">@Html.DisplayFor(model => model.Title)</h5>
         <div class="card-body" max-height="50px">
             <div class="text-start">
-                <small class="text-muted">posted by @Html.DisplayFor(model => model.User.Name) (@Html.DisplayFor(model => model.User.Email))</small>
+                <small class="text-muted">posted by @Html.DisplayFor(model => model.User!.Name) (@Html.DisplayFor(model => model.User!.Email))</small>
             </div>
             <hr>
             <div class="text-start">

@@ -77,9 +77,9 @@ namespace Adoptapal.Web.Controllers
                         return NotFound();
                     }
 
-                    List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(post.User);
+                    List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(post.User!);
                     int animalCount = userAnimals.Count;
-                    List<MessageBoard> userPosts = await _messageBoardManager.GetAllUserPostsByUserAsync(post.User);
+                    List<MessageBoard> userPosts = await _messageBoardManager.GetAllUserPostsByUserAsync(post.User!);
 
                     ViewBag.AnimalCount = animalCount;
                     ViewBag.Animals = userAnimals;
@@ -90,9 +90,9 @@ namespace Adoptapal.Web.Controllers
                 else
                 {
                     // Get the user's animals
-                    List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(animal.User);
+                    List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(animal.User!);
                     int animalCount = userAnimals.Count;
-                    List<MessageBoard> userPosts = await _messageBoardManager.GetAllUserPostsByUserAsync(animal.User);
+                    List<MessageBoard> userPosts = await _messageBoardManager.GetAllUserPostsByUserAsync(animal.User!);
 
                     ViewBag.AnimalCount = animalCount; // Pass the animal list to the view
                     ViewBag.Animals = userAnimals; // Pass the animal count to the view

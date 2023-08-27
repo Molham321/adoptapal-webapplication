@@ -45,7 +45,7 @@ namespace Adoptapal.Web.Controllers
             if (user != null)
             {
                 // Überprüfe das Passwort des Benutzers
-                if (UserManager.CheckPassword(user, model.Password))
+                if (UserManager.CheckPassword(user, model.Password!))
                 {
                     // Bei erfolgreicher Anmeldung wird der Benutzer zur Startseite weitergeleitet
                     HttpContext.Session.SetString("UserId", user.Id.ToString()); // Eine Sitzungsvariable erstellen
@@ -88,7 +88,7 @@ namespace Adoptapal.Web.Controllers
                     return View("Register", registerViewModel);
                 }
 
-                model.Password = UserManager.HashPassword(model.Password);
+                model.Password = UserManager.HashPassword(model.Password!);
 
                 await _manager.CreateUserAsync(model);
 
@@ -156,7 +156,7 @@ namespace Adoptapal.Web.Controllers
 
                 ViewData["Message"] = "Password reset email sent.";
             }
-            catch (Exception ex)
+            catch
             {
                 ViewData["ErrorMessage"] = "An error occurred while sending the email.";
             }
@@ -186,6 +186,7 @@ namespace Adoptapal.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Settings(User model)
         {
+
             User user = await _manager.GetUserByIdAsync(model.Id);
 
                 // update user info
@@ -204,7 +205,7 @@ namespace Adoptapal.Web.Controllers
                 {
                     Address address = new Address
                     {
-                        Street = model.Address.Street,
+                        Street = model.Address!.Street,
                         StreetNumber = model.Address.StreetNumber,
                         City = model.Address.City,
                         Zip = model.Address.Zip
@@ -216,7 +217,7 @@ namespace Adoptapal.Web.Controllers
                 }
                 else
                 {
-                    user.Address.Street = model.Address.Street;
+                    user.Address.Street = model.Address!.Street;
                     user.Address.StreetNumber = model.Address.StreetNumber;
                     user.Address.City = model.Address.City;
                     user.Address.Zip = model.Address.Zip;

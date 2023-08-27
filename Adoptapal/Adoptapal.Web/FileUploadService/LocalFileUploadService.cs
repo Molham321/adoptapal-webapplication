@@ -15,12 +15,16 @@ namespace Adoptapal.Web.FileUploadService
 {
     public class LocalFileUploadService : IFileUploadService
     {
+        [Obsolete]
         private readonly IHostingEnvironment environment;
 
+        [Obsolete]
         public LocalFileUploadService(IHostingEnvironment environment)
         {
             this.environment = environment;
         }
+
+        [Obsolete]
         public async Task<string> UploadFileAsync(IFormFile fileName)
         {
             var filePath = Path.Combine(environment.ContentRootPath, @"wwwroot\images", fileName.FileName);

@@ -74,7 +74,7 @@ namespace Adoptapal.Web.Controllers
         // GET: Favorit Animals
         public async Task<IActionResult> Favorit()
         {
-            var currentUser = await _userManager.GetUserByIdAsync(UserId);
+            var currentUser = await _userManager.GetUserByIdAsync(UserId!);
             if (currentUser == null)
             {
                 return RedirectToAction("Login", "Register");
@@ -98,13 +98,13 @@ namespace Adoptapal.Web.Controllers
                 return NotFound();
             }
 
-            var currentUser = await _userManager.GetUserByIdAsync(UserId);
+            var currentUser = await _userManager.GetUserByIdAsync(UserId!);
             if (currentUser == null)
             {
                 return RedirectToAction("Login", "Register");
             }
 
-            FavoritAnimals favoritAnimal = await _favoritAnimalsManager.GetFavoritAnimal(currentUser, animal);
+            FavoritAnimals? favoritAnimal = await _favoritAnimalsManager.GetFavoritAnimal(currentUser, animal);
 
             if (favoritAnimal != null)
             {
@@ -128,7 +128,7 @@ namespace Adoptapal.Web.Controllers
             if (!String.IsNullOrEmpty(AnimalCategory))
             {
                 ViewData["AnimalCategoryFilter"] = AnimalCategory;
-                animals = animals.Where(b => b.AnimalCategory.Contains(AnimalCategory));
+                animals = animals.Where(b => b.AnimalCategory!.Contains(AnimalCategory));
             }
 
             if (IsMale.HasValue)
@@ -149,7 +149,7 @@ namespace Adoptapal.Web.Controllers
             if (Birthday.HasValue)
             {
                 ViewData["BirthdayFilter"] = Birthday?.ToString("yyyy-MM-dd");
-                animals = animals.Where(b => b.Birthday >= Birthday.Value && b.Birthday <= DateTime.Today);
+                animals = animals.Where(b => b.Birthday >= Birthday!.Value && b.Birthday <= DateTime.Today);
             }
 
             return animals != null ?
@@ -160,11 +160,6 @@ namespace Adoptapal.Web.Controllers
         // GET: User/Profile/5
         public async Task<IActionResult> UserProfile(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var animal = await _manager.GetAnimalByIdAsync(id);
             if (animal == null)
             {

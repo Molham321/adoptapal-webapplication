@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-sm-1">
-        <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></i></a>
+        <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></a>
     </div>
     <div class="col-sm-11">
         <h1>Details</h1>
@@ -24,8 +24,8 @@
         <h5 class="card-header">@Html.DisplayFor(model => model.Title)</h5>
         <div class="card-body" max-height="50px">
             <div class="text-start">
-                <small class="text-muted">posted by @Html.DisplayFor(model => model.User.Name) (@Html.DisplayFor(model => model.User.Email))</small>
-                <a asp-action="UserProfile" asp-controller="Profile" asp-route-id="@Model.Id" class="btn btn-primary">visit profile</a>
+                <small class="text-muted">posted by @Html.DisplayFor(model => model.User!.Name) (@Html.DisplayFor(model => model.User!.Email))</small>
+                <a asp-action="UserProfile" asp-controller="Profile" asp-route-id="@Model!.Id" class="btn btn-primary">visit profile</a>
             </div>
             <hr>
             <div class="text-start">

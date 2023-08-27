@@ -17,16 +17,10 @@ namespace Adoptapal.Web.Controllers
     public class CommentController : Controller
     {
         private readonly CommentManager _manager;
-        private readonly UserManager _userManager;
-        private readonly MessageBoardManager _messageBoardManager;
 
-        private static string? userId;
-
-        public CommentController(CommentManager manager, UserManager userManager, MessageBoardManager commentManager) : base()
+        public CommentController(CommentManager manager) : base()
         {
             _manager = manager;
-            _userManager = userManager;
-            _messageBoardManager = commentManager;
         }
 
         // GET: Comments
