@@ -12,6 +12,7 @@ using Adoptapal.Business.Definitions;
 using Adoptapal.Business.Implementations;
 using Adoptapal.Web.FileUploadService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
 namespace Adoptapal.Web.Controllers
 { 
@@ -52,8 +53,12 @@ namespace Adoptapal.Web.Controllers
                     List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(model);
                     int animalCount = userAnimals.Count;
 
+                    // Get the user's posts
+                    List<MessageBoard> userPosts = await _messageBoardManager.GetAllUserPostsByUserAsync(model);
+
                     ViewBag.AnimalCount = animalCount; // Pass the animal count to the view
                     ViewBag.Animals = userAnimals; // Pass the animal count to the view
+                    ViewBag.MessageBoards = userPosts;
 
                     return View(model);
 
@@ -77,9 +82,11 @@ namespace Adoptapal.Web.Controllers
 
                     List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(post.User);
                     int animalCount = userAnimals.Count;
+                    List<MessageBoard> userPosts = await _messageBoardManager.GetAllUserPostsByUserAsync(post.User);
 
                     ViewBag.AnimalCount = animalCount;
                     ViewBag.Animals = userAnimals;
+                    ViewBag.MessageBoards = userPosts;
 
                     return View(post.User);
                 }
@@ -88,9 +95,11 @@ namespace Adoptapal.Web.Controllers
                     // Get the user's animals
                     List<Animal> userAnimals = await _animalManager.GetAllUserAnimalsByUserAsync(animal.User);
                     int animalCount = userAnimals.Count;
+                    List<MessageBoard> userPosts = await _messageBoardManager.GetAllUserPostsByUserAsync(animal.User);
 
                     ViewBag.AnimalCount = animalCount; // Pass the animal count to the view
                     ViewBag.Animals = userAnimals; // Pass the animal count to the view
+                    ViewBag.MessageBoards = userPosts;
 
 
                     return View(animal.User);
