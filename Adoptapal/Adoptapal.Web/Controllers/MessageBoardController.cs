@@ -19,11 +19,9 @@ namespace Adoptapal.Web.Controllers
         private readonly MessageBoardManager _manager;
         private readonly UserManager _userManager;
         private readonly CommentManager _commentManager;
-        // private readonly IFileUploadService _uploadService;
 
         private static string? userId;
         private static Guid currentPostId;
-        // public static string? FilePath;
 
 
         public MessageBoardController(MessageBoardManager manager, UserManager userManager, CommentManager commentManager) : base()
@@ -62,13 +60,8 @@ namespace Adoptapal.Web.Controllers
                 {
                     post.User = await _userManager.GetUserByIdAsync(userId);
                     post.PostTime = DateTime.Now;
-                    // Console.Write(post);
                     await _manager.CreatePostAsync(post);
                     return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    // return RedirectToAction("Login", "Account");
                 }
             }
 
@@ -114,7 +107,6 @@ namespace Adoptapal.Web.Controllers
             {
                 return NotFound();
             }
-            // HttpContext.Session.SetString("currentPostId", post.Id.ToString());
 
             currentPostId = post.Id;
 
@@ -147,7 +139,7 @@ namespace Adoptapal.Web.Controllers
         {
             userId = HttpContext.Session.GetString("UserId");
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && userId != null)
             {
                 comment.Post = await _manager.GetPostByIdAsync(currentPostId);
                 comment.User = await _userManager.GetUserByIdAsync(userId);
@@ -175,7 +167,7 @@ namespace Adoptapal.Web.Controllers
         public async Task<IActionResult> DeleteComment(Guid id)
         {
             await _commentManager.DeleteCommentAsync(id);
-            return RedirectToAction("PostComments", new { id = currentPostId });
+            return RedirectToAction("Details", new { id = currentPostId });
         }
     }
 }

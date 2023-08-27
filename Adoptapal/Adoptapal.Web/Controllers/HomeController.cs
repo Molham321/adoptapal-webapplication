@@ -31,6 +31,7 @@ namespace Adoptapal.Web.Controllers
             _favoritAnimalsManager = favoritAnimalsManager;
         }
 
+        // POST: FavoriteAnimal
         public async Task<IActionResult> AddToFavorite(Guid animalId)
         {
             var animal = await _manager.GetAnimalByIdAsync(animalId);
@@ -171,11 +172,6 @@ namespace Adoptapal.Web.Controllers
             }
 
             return View(animal.User);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

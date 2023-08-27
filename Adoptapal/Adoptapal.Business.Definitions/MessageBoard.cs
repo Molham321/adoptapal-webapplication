@@ -40,9 +40,5 @@ namespace Adoptapal.Business.Definitions
         /// Gets or sets the user who created the message board post.
         /// </summary>
         public User? User { get; set; }
-
-        /// <summary>
-        /// Gets or sets the comments associated with the message board post.
-        /// </summary>
     }
 }
