@@ -1,7 +1,7 @@
 ﻿@model Adoptapal.Business.Definitions.MessageBoard
 
 @{
-    // ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var userId = Context.Session.GetString("UserId");
     var isOwner = userId != null && Model?.User?.Id.ToString() == userId;

@@ -39,9 +39,6 @@ namespace Adoptapal.Web.Controllers
 
         public async Task<IActionResult> UserProfile(Guid? id)
         {
-            // hier dritten Fall, für Userprofil aufrufen aus Post (Schwarzes Brett)
-            // MessageBoard manager benötigt
-
             if (id == null)
             {
                 UserId = HttpContext.Session.GetString("UserId");
